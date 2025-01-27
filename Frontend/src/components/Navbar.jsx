@@ -61,7 +61,7 @@ function Navbar() {
               onMouseEnter={() => toggleDropdown(setHostelDropdownVisible, true)}
               onMouseLeave={() => toggleDropdown(setHostelDropdownVisible, false)}
             >
-              <Link to="#" className="block px-4 py-2 hover:bg-gray-200">
+              <Link to="RoomAllotment" className="block px-4 py-2 hover:bg-gray-200">
                 Room Allotment
               </Link>
               <Link to="/Event" className="block px-4 py-2 hover:bg-gray-200">
@@ -73,10 +73,10 @@ function Navbar() {
               <Link to="#" className="block px-4 py-2 hover:bg-gray-200">
                 Community Forum
               </Link>
-              <Link to="#" className="block px-4 py-2 hover:bg-gray-200">
+              <Link to="HostelFeedback" className="block px-4 py-2 hover:bg-gray-200">
                 Feedback
               </Link>
-              <Link to="#" className="block px-4 py-2 hover:bg-gray-200">
+              <Link to="HostelLeavingForm" className="block px-4 py-2 hover:bg-gray-200">
                 Hostel Leaving Registration
               </Link>
             </div>
@@ -100,10 +100,10 @@ function Navbar() {
               onMouseEnter={() => toggleDropdown(setMessDropdownVisible, true)}
               onMouseLeave={() => toggleDropdown(setMessDropdownVisible, false)}
             >
-              <Link to="#" className="block px-4 py-2 hover:bg-gray-200">
+              <Link to="MessBill" className="block px-4 py-2 hover:bg-gray-200">
                 Mess Bill
               </Link>
-              <Link to="#" className="block px-4 py-2 hover:bg-gray-200">
+              <Link to="MessFeedback" className="block px-4 py-2 hover:bg-gray-200">
                 Feedback
               </Link>
               <Link to="/messschedule" className="block px-4 py-2 hover:bg-gray-200">
