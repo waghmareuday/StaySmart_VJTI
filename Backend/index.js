@@ -13,10 +13,7 @@ app.use(express.json());
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(process.env.MONGO_URI);
     console.log('Database connected successfully!');
   } catch (error) {
     console.error('Database connection failed:', error);
@@ -27,9 +24,13 @@ const connectDB = async () => {
 
 connectDB();
 
-
+// Routes
 const feedbackRoutes = require('./routes/feedback');
+const AuthRoutes = require("./routes/AuthRoutes")
+
+// Use routes
 app.use('/api/v1/feedback',feedbackRoutes);
+app.use('/api/v1/auth',AuthRoutes);
 
 
 

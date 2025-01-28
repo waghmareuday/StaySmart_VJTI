@@ -1,7 +1,48 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React,{useState} from 'react';
+import { Link,useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Signup() {
+  const [name, setname] = useState("")
+  const [password, setpassword] = useState("")
+  const [email, setemail] = useState("")
+  const [collegeId, setCollegeId] = useState("")
+  const [confirmpass, setConfirmPass] = useState("")
+  const navigate = useNavigate()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (password !== confirmpass) {
+      alert("Password doesn't match!")
+      return;
+    }
+   
+    const data={
+      name,
+      email,
+      collegeId,
+      password 
+    }
+    try {
+      const response = await axios.post('http://localhost:5000/api/v1/auth/signup', data);
+
+      if (response.status === 200) {
+        alert(response.data.message);
+
+        setCollegeId("")
+        setname("")
+        setConfirmPass("")
+        setpassword("")
+        setemail("")
+        navigate("/login")
+
+      } else {
+        alert('Failed to submit feedback. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred. Please try again.');
+    }
+  };
   return (
     <div className="bg-gradient-to-br bg-gray-900 min-h-screen flex items-center pt-28 justify-center px-12 py-10">
       <div className="w-full max-w-lg bg-gray-800 rounded-2xl shadow-2xl p-10">
@@ -11,8 +52,27 @@ function Signup() {
         <p className="text-center text-gray-300 mb-8">
           Join us and get started with our amazing features.
         </p>
-        <form className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {/* Email Field */}
+          <div>
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-200 mb-2"
+            >
+              Name
+            </label>
+            <input
+              type="name"
+              id="name"
+              name="name"
+              placeholder="e.g. chutya"
+              className="bg-gray-800 border border-gray-600 text-white placeholder-gray-400 rounded-lg w-full p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              required
+              onChange={(e) => {
+                setname(e.target.value)
+              }}
+            />
+          </div>
           <div>
             <label
               htmlFor="email"
@@ -27,6 +87,9 @@ function Signup() {
               placeholder="name@company.com"
               className="bg-gray-800 border border-gray-600 text-white placeholder-gray-400 rounded-lg w-full p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               required
+              onChange={(e) => {
+                setemail(e.target.value)
+              }}
             />
           </div>
 
@@ -45,6 +108,9 @@ function Signup() {
               placeholder="24#######"
               className="bg-gray-800 border border-gray-600 text-white placeholder-gray-400 rounded-lg w-full p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               required
+              onChange={(e) => {
+                setCollegeId(e.target.value)
+              }}
             />
           </div>
 
@@ -63,6 +129,9 @@ function Signup() {
               placeholder="*******"
               className="bg-gray-800 border border-gray-600 text-white placeholder-gray-400 rounded-lg w-full p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               required
+              onChange={(e) => {
+                setpassword(e.target.value)
+              }}
             />
           </div>
 
@@ -81,6 +150,9 @@ function Signup() {
               placeholder="*******"
               className="bg-gray-800 border border-gray-600 text-white placeholder-gray-400 rounded-lg w-full p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               required
+              onChange={(e) => {
+                setConfirmPass(e.target.value)
+              }}
             />
           </div>
 
