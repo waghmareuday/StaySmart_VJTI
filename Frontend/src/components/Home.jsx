@@ -240,7 +240,6 @@ function Home() {
 
       {/* Footer */}
       <footer className={`bg-[#1f2937] py-6 text-center text-[#d1d5db] ${isDarkMode ? 'dark' : ''}`}>
-        <p>&copy; 2025 VJTI StaySmart. All rights reserved.</p>
       </footer>
     </div>
   );
