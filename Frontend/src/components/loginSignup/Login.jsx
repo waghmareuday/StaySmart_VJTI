@@ -1,14 +1,49 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React,{useState} from 'react';
+import { Link,useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Login() {
+    const [password, setpassword] = useState("");
+    const [email, setemail] = useState("");
+
+    const navigate = useNavigate();
+
+    const handleSubmit=async(e)=>{
+e.preventDefault();
+
+const data={
+  email,
+  password
+}
+
+try{
+  const response = await axios.post('http://localhost:5000/api/v1/auth/login', data);
+  
+  if (response.status === 200) {
+    alert(response.data.message);
+
+    setpassword("")
+    setemail("")
+    navigate("/")
+
+  } else {
+    alert('Failed to Login. Please try again.');
+  }
+}catch (error){
+  console.error('Error:', error);
+  alert('An error occurred. Please try again.');
+}
+
+    }
+
+
   return (
     <div className="bg-gray-900 min-h-screen flex items-center justify-center">
       <div className="w-full max-w-md bg-gray-800 rounded-lg shadow-lg p-8">
         <h1 className="text-3xl font-bold text-center text-slate-400 mb-6">
           Login
         </h1>
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label className="block mb-2 text-sm font-medium text-white">
               Your Email
@@ -17,6 +52,8 @@ function Login() {
               type="email"
               name="email"
               id="email"
+              onChange={(e)=>setemail(e.target.value)}
+                autocomplete="email"
               className="bg-gray-700 border border-gray-600 text-white rounded-lg block w-full p-2.5 placeholder-gray-400"
               placeholder="name@company.com"
             />
@@ -29,8 +66,10 @@ function Login() {
               type="password"
               name="password"
               id="password"
+              onChange={(e)=>setpassword(e.target.value)}
               className="bg-gray-700 border border-gray-600 text-white rounded-lg block w-full p-2.5 placeholder-gray-400"
               placeholder="*******"
+              autocomplete="current-password"
             />
           </div>
           <div className="flex items-center justify-between">
