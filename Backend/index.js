@@ -32,6 +32,7 @@ const AuthRoutes = require("./routes/AuthRoutes")
 app.use('/api/v1/feedback',feedbackRoutes);
 app.use('/api/v1/auth',AuthRoutes);
 
+// app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
 
 const PORT = process.env.PORT || 5000;
