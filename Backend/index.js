@@ -27,10 +27,14 @@ connectDB();
 // Routes
 const feedbackRoutes = require('./routes/feedback');
 const AuthRoutes = require("./routes/AuthRoutes")
+const HostelAllotmentRoutes = require("./routes/hostelAllotment")
+const LostnFound = require("./routes/lostnFound");
 
 // Use routes
 app.use('/api/v1/feedback',feedbackRoutes);
 app.use('/api/v1/auth',AuthRoutes);
+app.use('/api/v1/hostelAllotment',HostelAllotmentRoutes);
+app.use('/api/v1/lostnFound',LostnFoundRoutes);
 
 
 

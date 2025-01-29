@@ -1,6 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 function RoomAllotmentForm() {
+  const [formData, setFormData] = useState({
+    fullName: '',
+    rollNumber: '',
+    department: '',
+    roomType: '',
+    arrivalDate: '',
+    contact: '',
+    reason: '',
+  });
+
+  // const handleChange = (e) => {
+  //   setFormData({
+  //     ...formData,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/v1/HostelAllotment', formData);
+
+      if (response.status === 200) {
+        alert(response.data.message);
+
+        setFormData({
+          fullName: '',
+          rollNumber: '',
+          department: '',
+          roomType: '',
+          arrivalDate: '',
+          contact: '',
+          reason: '',
+        });
+      } else {
+        alert('Failed to submit the allotment form. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred. Please try again.');
+    }
+  };
+
   return (
     <div className="bg-gray-900 min-h-screen flex justify-center items-center pt-28 pb-6">
       <div className="w-full max-w-5xl bg-gray-800 rounded-xl shadow-lg p-8">
@@ -8,7 +54,7 @@ function RoomAllotmentForm() {
         <p className="text-gray-300 text-center mb-6">
           Please fill out the form below to request a room allotment.
         </p>
-        <form className="w-full">
+        <form className="w-full" onSubmit={handleSubmit}>
           <table className="table-auto w-full text-left text-gray-300">
             <tbody>
               <tr>
@@ -20,6 +66,8 @@ function RoomAllotmentForm() {
                     type="text"
                     id="fullName"
                     name="fullName"
+                    value={formData.fullName}
+                    onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                     placeholder="E.g., John Doe"
                     className="w-full p-3 bg-gray-700 rounded-lg focus:ring-blue-500 focus:outline-none"
                   />
@@ -32,6 +80,8 @@ function RoomAllotmentForm() {
                     type="text"
                     id="rollNumber"
                     name="rollNumber"
+                    value={formData.rollNumber}
+                    onChange={(e) => setFormData({ ...formData, rollNumber: e.target.value })}
                     placeholder="E.g., 12345"
                     className="w-full p-3 bg-gray-700 rounded-lg focus:ring-blue-500 focus:outline-none"
                   />
@@ -46,6 +96,8 @@ function RoomAllotmentForm() {
                     type="text"
                     id="department"
                     name="department"
+                    value={formData.department}
+                    onChange={(e) => setFormData({ ...formData, department: e.target.value })}
                     placeholder="E.g., Computer Science"
                     className="w-full p-3 bg-gray-700 rounded-lg focus:ring-blue-500 focus:outline-none"
                   />
@@ -57,6 +109,8 @@ function RoomAllotmentForm() {
                   <select
                     id="roomType"
                     name="roomType"
+                    value={formData.roomType}
+                    onChange={(e) => setFormData({ ...formData, roomType: e.target.value })}
                     className="w-full p-3 bg-gray-700 rounded-lg focus:ring-blue-500 focus:outline-none"
                   >
                     <option value="">Select...</option>
@@ -75,6 +129,8 @@ function RoomAllotmentForm() {
                     type="date"
                     id="arrivalDate"
                     name="arrivalDate"
+                    value={formData.arrivalDate}
+                    onChange={(e) => setFormData({ ...formData, arrivalDate: e.target.value })}
                     className="w-full p-3 bg-gray-700 rounded-lg focus:ring-blue-500 focus:outline-none"
                   />
                 </td>
@@ -86,6 +142,8 @@ function RoomAllotmentForm() {
                     type="text"
                     id="contact"
                     name="contact"
+                    value={formData.contact}
+                    onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
                     placeholder="E.g., 9876543210"
                     className="w-full p-3 bg-gray-700 rounded-lg focus:ring-blue-500 focus:outline-none"
                   />
@@ -99,6 +157,8 @@ function RoomAllotmentForm() {
                   <textarea
                     id="reason"
                     name="reason"
+                    value={formData.reason}
+                    onChange={(e) => setFormData({ ...formData, reason: e.target.value })}
                     placeholder="Explain the reason for requesting the room."
                     rows="3"
                     className="w-full p-3 bg-gray-700 rounded-lg focus:ring-blue-500 focus:outline-none"
