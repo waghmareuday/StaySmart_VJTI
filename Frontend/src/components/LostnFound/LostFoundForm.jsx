@@ -31,7 +31,7 @@ function LostFoundForm() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/api/v1/LostnFound', formData);
+      const response = await axios.post('http://localhost:5000/api/v1/hostel/lostnfound', formData);
 
       if (response.status === 200) {
         alert(response.data.message);

@@ -65,7 +65,7 @@ function Signup() {
               type="name"
               id="name"
               name="name"
-              placeholder="e.g. chutya"
+              placeholder="Enter your Full Name"
               className="bg-gray-800 border border-gray-600 text-white placeholder-gray-400 rounded-lg w-full p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               required
               onChange={(e) => {

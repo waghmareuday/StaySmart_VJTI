@@ -36,4 +36,24 @@ router.post('/signup', async (req, res) => {
     }
 });
 
+router.post('/login', async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      console.log('Login Attempt:', email); // Debugging
+
+      const user = await AuthModel.findOne({ email });
+      if (!user || user.password !== password) {
+        return res.send({ message: 'Invalid credentials' });
+      }
+  
+      //req.session.user = user; // Store user in session
+     console.log(user);
+     
+      res.send({ message: 'Login successful', user: { id: user._id, name: user.name, email: user.email } });
+      
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
 module.exports= router;
