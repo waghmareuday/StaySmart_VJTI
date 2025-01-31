@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import myHook from "../Context"
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 export default function MessOffForm() {
-  const {user}=myHook()
-  const [type,setType]=useState("Off")
+  const { user } = myHook()
+  const [type, setType] = useState("Off")
   const [formData, setFormData] = useState({
     option: "Off",
     name: user.name,
@@ -19,7 +19,7 @@ export default function MessOffForm() {
   const handleOptionChange = (value) => {
     setFormData((prev) => ({ ...prev, option: value }));
   };
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
@@ -55,21 +55,19 @@ export default function MessOffForm() {
         </h2>
         <div className="mb-4 flex justify-center space-x-4 bg-gray-800 p-2 rounded-lg">
           <button
-            className={`px-4 py-2 rounded-lg ${
-              formData.option === "Off"
+            className={`px-4 py-2 rounded-lg ${formData.option === "Off"
                 ? "bg-gray-600 text-white"
                 : "text-white"
-            }`}
+              }`}
             onClick={() => handleOptionChange("Off")}
           >
             Mess Off
           </button>
           <button
-            className={`px-4 py-2 rounded-lg ${
-              formData.option === "Join"
+            className={`px-4 py-2 rounded-lg ${formData.option === "Join"
                 ? "bg-gray-600 text-white"
                 : "text-white"
-            }`}
+              }`}
             onClick={() => handleOptionChange("Join")}
           >
             Rejoin Mess
@@ -102,7 +100,9 @@ export default function MessOffForm() {
             onChange={handleChange}
             required
             className="w-full p-2 bg-gray-900 text-white rounded-lg"
+            min={new Date().toISOString().split("T")[0]} // Restrict past dates
           />
+
           <button
             type="submit"
             className="w-full bg-teal-500 text-black p-2 rounded-lg"

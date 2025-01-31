@@ -16,13 +16,18 @@ import Complaint from "./components/Complaint/complaint";
 import Event from "./components/Event/event";
 import MessOff from "./components/MessOff/messoff";
 import { ContextProvider } from "./components/Context";
-import Profile from "./components/Profile";
 import AdminHome from "./components/Admin/AdminHome";
 import Layout from "./components/Layout";
 import Dashboard from "./components/Admin/Dashboard";
 import AdminMessoff from "./components/Admin/MessOff";
+import AdminHostelFeedback from "./components/Admin/AdminHostelFeedback";
+import AdminMessFeedback from "./components/Admin/AdminMessFeedback";
+import Profile from "./components/Profile";
+
 import AdminComplaint from "./components/Admin/Complaint";
 import HostelAllotment from "./components/Admin/HostelAllotment";
+import AdminProfile from "./components/Admin/AdminProfile";
+
 
 function App() {
   return (
@@ -54,12 +59,17 @@ function App() {
               <Route path="/Complaint" element={<Complaint />}></Route>
               <Route path="/Event" element={<Event />}></Route>
               <Route path="/MessOff" element={<MessOff />}></Route>
-              <Route path="/Profile" element={<Profile />}></Route>
+              <Route path="/Profile" element={<Profile/>}></Route>
             </Route>
 
             <Route exact path="/admin" element={<AdminHome />}>
+            <Route path="/admin/profile" element={<AdminProfile/>}></Route>
               <Route path="/admin/dashboard" element={<Dashboard />}></Route>
               <Route path="/admin/messoff" element={<AdminMessoff />}></Route>
+
+              <Route path="/admin/hostelfeedback" element={<AdminHostelFeedback />}></Route>
+              <Route path="/admin/messfeedback" element={<AdminMessFeedback />}></Route>
+
               <Route path="/admin/complaint" element={<AdminComplaint />}></Route>
               <Route path="/admin/HostelAllotment" element={<HostelAllotment />}></Route>
 
