@@ -8,7 +8,12 @@ const hostelAllotmentSchema = new mongoose.Schema({
   arrivalDate: { type: Date, required: true },
   contact: { type: Number, required: true },
   reason: { type: String, required: true },
-});
+  alloted: { type: Boolean, default: false },
+},{
+  timestamps: true
+}
+
+);
 
 const hostelAllotment = mongoose.model('HostelAllotment', hostelAllotmentSchema);
 

@@ -22,9 +22,9 @@ function RoomAllotmentForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(formData);
     try {
-      const response = await axios.post('http://localhost:5000/api/v1/HostelAllotment', formData);
+      const response = await axios.post('http://localhost:5000/api/v1/hostel/hostelAllotment', formData);
 
       if (response.status === 200) {
         alert(response.data.message);

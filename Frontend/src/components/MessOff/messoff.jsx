@@ -105,7 +105,7 @@ export default function MessOffForm() {
 
           <button
             type="submit"
-            className="w-full bg- text-black p-2 rounded-lg"
+            className="w-full bg-teal-500 text-black p-2 rounded-lg"
           >
             Submit Request
           </button>

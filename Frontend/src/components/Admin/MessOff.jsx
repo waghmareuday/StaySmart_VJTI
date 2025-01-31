@@ -26,33 +26,14 @@ function MessOff() {
     useEffect(()=>{
         fetchData()
     },[])
-    // const data = [
-    //     {
-    //       name: "Uday Waghmare",
-    //       email: "test@gmail.com",
-    //       option: "Join",
-    //       date: "2025-01-31"
-    //     },
-    //     {
-    //       name: "Madhukar Waghmare",
-    //       email: "madhukar@example.com",
-    //       option: "Off",
-    //       date: "2025-01-30"
-    //     },
-    //     {
-    //       name: "Sadhna Waghmare",
-    //       email: "sadhna@example.com",
-    //       option: "Join",
-    //       date: "2025-01-29"
-    //     }
-    //   ];
+
   return (
     <div className="w-[100%] h-[90vh] bg-gray-800 mt-1 p-2">
       <div className="text-2xl text-white">MessOff</div>
 
-      <div className="overflow-x-auto shadow-md sm:rounded-md">
+      <div className="overflow-x-auto shadow-md h-[550px] overflow-y-auto">
         <table className="min-w-full text-sm text-left text-gray-500">
-          <thead className="text-xs text-white uppercase">
+          <thead className="text-xs bg-gray-800 sticky top-0 text-white uppercase">
             <tr>
               <th scope="col" className="px-6 py-3">
                 Name
@@ -82,6 +63,9 @@ function MessOff() {
                 <td className="px-6 py-4">{convertToNormalDate(row?.date)}</td>
               </tr>
             ))}
+            
+           
+            
           </tbody>
         </table>
       </div>
