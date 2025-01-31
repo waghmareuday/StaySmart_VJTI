@@ -3,6 +3,7 @@ const router=express.Router();
 const HostelLeaving=require('../models/HostelLeaving');
 const HostelAllotment =require('../models/HostelAllotment'); 
 const LostnFound = require('../models/LostnFound'); 
+const MessOff = require('../models/Messoff'); 
 
 router.post('/hostelLeaving',async (req,res)=>{
     try {
@@ -65,6 +66,29 @@ router.post('/lostnfound', async (req, res) => {
       res.status(500).json({ message: 'Something went wrong. Please try again.' });
     }
   });
+
+router.post('/messoff', async (req, res) => {
+    try {
+      const { name, email, option, date } = req.body;
+  
+      const newMessOff = new MessOff({
+        name,
+        email,
+        option,
+        date,
+      });
+  
+      await newMessOff.save();
+      res.status(201).json({ message: "Record created successfully", data: newMessOff });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Error creating record", error: err.message });
+    }
+  });
+  
+
+
+
 
 
 

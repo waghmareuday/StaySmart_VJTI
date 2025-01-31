@@ -28,11 +28,13 @@ connectDB();
 const feedbackRoutes = require('./routes/feedback');
 const AuthRoutes = require("./routes/AuthRoutes")
 const HostelLeaving = require("./routes/Hostel")
+const AdminRoutes = require("./routes/AdminRoutes")
 
 // Use routes
 app.use('/api/v1/feedback',feedbackRoutes);
 app.use('/api/v1/auth',AuthRoutes);
 app.use('/api/v1/hostel',HostelLeaving);
+app.use('/api/v1/admin',AdminRoutes);
 
 
 

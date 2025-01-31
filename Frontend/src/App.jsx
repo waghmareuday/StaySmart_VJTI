@@ -17,35 +17,49 @@ import Event from "./components/Event/event";
 import MessOff from "./components/MessOff/messoff";
 import { ContextProvider } from "./components/Context";
 import Profile from "./components/Profile";
+import AdminHome from "./components/Admin/AdminHome";
+import Layout from "./components/Layout";
+import Dashboard from "./components/Admin/Dashboard";
+import AdminMessoff from "./components/Admin/MessOff";
 function App() {
   return (
     <>
       <ContextProvider>
         <BrowserRouter>
-          <Navbar />
+          {/* <Navbar /> */}
           <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/Login" element={<Login />}></Route>
-            <Route path="/Signup" element={<Signup />}></Route>
-            <Route path="/LostnFound" element={<LostnFound />}></Route>
-            <Route
-              path="/HostelLeavingForm"
-              element={<HostelLeavingForm />}
-            ></Route>
-            <Route
-              path="/RoomAllotment"
-              element={<RoomAllotmentForm />}
-            ></Route>
-            <Route path="/MessBill" element={<MessBill />}></Route>
-            <Route path="/MessFeedback" element={<MessFeedback />}></Route>
-            <Route path="/HostelFeedback" element={<HostelFeedback />}></Route>
-            <Route path="/MessSchedule" element={<MessSchedule />}></Route>
-            <Route path="/Complaint" element={<Complaint />}></Route>
-            <Route path="/Event" element={<Event />}></Route>
-            <Route path="/MessOff" element={<MessOff />}></Route>
-            <Route path="/Profile" element={<Profile />}></Route>
+            <Route path="/" element={<Layout />}>
+              <Route path="/" element={<Home />}></Route>
+              <Route path="/Login" element={<Login />}></Route>
+              <Route path="/Signup" element={<Signup />}></Route>
+              <Route path="/LostnFound" element={<LostnFound />}></Route>
+              <Route
+                path="/HostelLeavingForm"
+                element={<HostelLeavingForm />}
+              ></Route>
+              <Route
+                path="/RoomAllotment"
+                element={<RoomAllotmentForm />}
+              ></Route>
+              <Route path="/MessBill" element={<MessBill />}></Route>
+              <Route path="/MessFeedback" element={<MessFeedback />}></Route>
+              <Route
+                path="/HostelFeedback"
+                element={<HostelFeedback />}
+              ></Route>
+              <Route path="/MessSchedule" element={<MessSchedule />}></Route>
+              <Route path="/Complaint" element={<Complaint />}></Route>
+              <Route path="/Event" element={<Event />}></Route>
+              <Route path="/MessOff" element={<MessOff />}></Route>
+              <Route path="/Profile" element={<Profile />}></Route>
+            </Route>
+
+            <Route exact path="/admin" element={<AdminHome />}>
+              <Route path="/admin/dashboard" element={<Dashboard />}></Route>
+              <Route path="/admin/messoff" element={<AdminMessoff />}></Route>
+            </Route>
           </Routes>
-          <Footer />
+          {/* <Footer /> */}
         </BrowserRouter>
       </ContextProvider>
     </>

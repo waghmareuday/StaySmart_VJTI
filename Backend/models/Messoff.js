@@ -1,11 +1,12 @@
-import mongoose from "mongoose";
+const mongoose =require("mongoose");
 
 const MessOffSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  rollNumber: { type: String, required: true, unique: true },
+  email: { type: String, required: true },
   option: { type: String, enum: ["Off", "Join"], required: true },
   date: { type: Date, required: true },
   createdAt: { type: Date, default: Date.now },
 });
 
-export default mongoose.model("MessOff", MessOffSchema);
+ const messoff=mongoose.model("MessOff", MessOffSchema);
+module.exports=messoff;
