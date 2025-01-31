@@ -4,6 +4,7 @@ const HostelLeaving=require('../models/HostelLeaving');
 const HostelAllotment =require('../models/HostelAllotment'); 
 const LostnFound = require('../models/LostnFound'); 
 const MessOff = require('../models/Messoff'); 
+const Complaint = require('../models/Complaint');
 
 router.post('/hostelLeaving',async (req,res)=>{
     try {
@@ -45,7 +46,26 @@ router.post('/hostelAllotment', async (req, res) => {
     }
   });
 
-router.post('/lostnfound', async (req, res) => {
+router.post('/Complaint', async (req, res) => {
+    try {
+      const { name, email, details } = req.body;
+  
+      const newComplaint = new Complaint({
+        name,
+        email,
+        details,
+      });
+  
+      await newComplaint.save();
+      
+      res.status(200).json({ message: 'Complaint submitted successfully!' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Something went wrong. Please try again.' });
+    }
+  });
+
+  router.post('/lostnfound', async (req, res) => {
     try {
       const { itemType, itemName, description, location, contact, imageURL } = req.body;
   
@@ -67,6 +87,7 @@ router.post('/lostnfound', async (req, res) => {
     }
   });
 
+
 router.post('/messoff', async (req, res) => {
     try {
       const { name, email, option, date } = req.body;
@@ -86,12 +107,6 @@ router.post('/messoff', async (req, res) => {
     }
   });
   
-
-
-
-
-
-
 
 
 module.exports=router;

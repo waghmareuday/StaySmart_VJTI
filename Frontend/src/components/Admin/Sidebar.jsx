@@ -9,10 +9,11 @@ function Sidebar() {
           <Link to="/admin/dashboard" className='p-1 text-white cursor-pointer'>
             Dashboard
             </Link>
+          <Link to="/admin/HostelAllotment" className='p-1 text-white cursor-pointer'>Hostell Allotment</Link>
           <Link className='p-1 text-white cursor-pointer'>Users</Link>
           <li className='p-1 text-white cursor-pointer'>Events</li>
           <Link to="/admin/messoff" className='p-1 text-white cursor-pointer'>MessOff</Link>
-          <li className='p-1 text-white cursor-pointer'>Complaints</li>
+          <Link to="/admin/Complaint" className='p-1 text-white cursor-pointer'>Complaints</Link>
           <li className='p-1 text-white cursor-pointer'>Feedback</li>
         </ul>
       </div>

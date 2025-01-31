@@ -21,6 +21,9 @@ import AdminHome from "./components/Admin/AdminHome";
 import Layout from "./components/Layout";
 import Dashboard from "./components/Admin/Dashboard";
 import AdminMessoff from "./components/Admin/MessOff";
+import AdminComplaint from "./components/Admin/Complaint";
+import HostelAllotment from "./components/Admin/HostelAllotment";
+
 function App() {
   return (
     <>
@@ -57,6 +60,9 @@ function App() {
             <Route exact path="/admin" element={<AdminHome />}>
               <Route path="/admin/dashboard" element={<Dashboard />}></Route>
               <Route path="/admin/messoff" element={<AdminMessoff />}></Route>
+              <Route path="/admin/complaint" element={<AdminComplaint />}></Route>
+              <Route path="/admin/HostelAllotment" element={<HostelAllotment />}></Route>
+
             </Route>
           </Routes>
           {/* <Footer /> */}
