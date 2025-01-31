@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import myHook from "../Context"
+
 
 function HostelFeedback() {
+  const {user}=myHook();
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
+    name: user.name,
+    email: user.email,
     feedback: '',
     rating: '',
   });
@@ -22,7 +25,7 @@ const handleSubmit = async (e) => {
   e.preventDefault();
 
   try {
-    const response = await axios.post('http://localhost:5000/api/v1/feedback', formData);
+    const response = await axios.post('http://localhost:5000/api/v1/feedback/hostel', formData);
 
     if (response.status === 200) {
       alert(response.data.message);
@@ -45,7 +48,7 @@ const handleSubmit = async (e) => {
 
 
   return (
-    <div className="bg-gray-900 text-white font-sans">
+    <div className="bg-gray-900 text-white font-sans pt-[8%]">
       <div className="min-h-screen flex flex-col items-center justify-center">
         <h1 className="text-3xl font-bold text-blue-400 mb-4">Hostel Feedback Form</h1>
         <p className="text-gray-400 text-center mb-6">We value your feedback! Please take a moment to share your thoughts about our hostel services.</p>

@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaSun, FaMoon, FaBars, FaTimes } from "react-icons/fa";
 import myHook from "./Context";
 import { LuCircleUser } from "react-icons/lu";
+
 function Navbar() {
   const [isHostelDropdownVisible, setHostelDropdownVisible] = useState(false);
   const [isMessDropdownVisible, setMessDropdownVisible] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user } = myHook();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
+
   useEffect(() => {
     const darkMode = localStorage.getItem("darkMode") === "true";
     setIsDarkMode(darkMode);
@@ -18,15 +20,43 @@ function Navbar() {
     } else {
       document.body.classList.remove("dark");
     }
+
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.dropdown-container')) {
+        setHostelDropdownVisible(false);
+        setMessDropdownVisible(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
   }, []);
 
-  const toggleDropdown = (setter, value) => {
-    setter(value);
+  const handleHostelClick = (e) => {
+    e.stopPropagation();
+    setMessDropdownVisible(false);
+    setHostelDropdownVisible(!isHostelDropdownVisible);
   };
 
+  const handleMessClick = (e) => {
+    e.stopPropagation();
+    setHostelDropdownVisible(false);
+    setMessDropdownVisible(!isMessDropdownVisible);
+  };
+
+  const handleDropdownClick = () => {
+    setHostelDropdownVisible(false);
+    setMessDropdownVisible(false);
+    setIsMobileMenuOpen(false);
+  };
+
+  const handleNavigate = () => {
+    // This will navigate to the specified URL
+    navigate("http://localhost:8081/");
+  };
   const gotoProfile = () => {
-     navigate("/Profile")
-  }
+    navigate("/Profile");
+  };
 
   const toggleDarkMode = () => {
     const newDarkMode = !isDarkMode;
@@ -41,126 +71,80 @@ function Navbar() {
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+    setHostelDropdownVisible(false);
+    setMessDropdownVisible(false);
   };
 
   return (
-    <div
-      className={`navbar h-24 w-full bg-gray-800 flex items-center justify-between px-8 fixed top-0 z-50 ${
-        isDarkMode ? "dark" : ""
-      }`}
-    >
+    <div className={`navbar h-20 w-full bg-gray-800 flex items-center justify-between px-8 fixed top-0 z-50 ${isDarkMode ? "dark" : ""}`}>
       <div className="logo text-2xl text-white font-bold">VJTI StaySmart</div>
 
       <div className="hidden md:flex feature text-white text-xl items-center gap-6">
-      {/* <button
-          id="dark-mode-toggle"
-          className="text-white hover:text-blue-500"
-          onClick={toggleDarkMode}
-        >
-          {isDarkMode ? <FaSun /> : <FaMoon />}
-        </button> */}
-        <Link to="/" className="hover:text-blue-500">
-          Home
-        </Link>
+        <Link to="/" className="hover:text-blue-500">Home</Link>
 
-        <div
-          className="relative"
-          onMouseEnter={() => toggleDropdown(setHostelDropdownVisible, true)}
-          onMouseLeave={() => toggleDropdown(setHostelDropdownVisible, false)}
-        >
-          <button className="flex items-center gap-2 px-4 py-2 text-white font-medium rounded-lg hover:text-blue-500 transition-all duration-300">
+        <div className="relative dropdown-container">
+          <button 
+            className="flex items-center gap-2 px-4 py-2 text-white font-medium rounded-lg hover:text-blue-500"
+            onClick={handleHostelClick}
+          >
             <span>Hostel</span>
-            <span className="text-sm transition-transform duration-300">
-              &#x25BC;
-            </span>
+            <span className="text-sm">&#x25BC;</span>
           </button>
           {isHostelDropdownVisible && (
-            <div
-              className="absolute left-0 mt-2 w-40 bg-white text-black border border-gray-300 shadow-lg rounded transition-all duration-300 z-10"
-              onMouseEnter={() =>
-                toggleDropdown(setHostelDropdownVisible, true)
-              }
-              onMouseLeave={() =>
-                toggleDropdown(setHostelDropdownVisible, false)
-              }
-            >
-              
-              <Link to="/Event" className="block px-4 py-2 hover:bg-gray-200">
+            <div className="absolute left-0 mt-2 w-40 bg-white text-black border border-gray-300 shadow-lg rounded z-10">
+              <Link to="/Event" className="block px-4 py-2 hover:bg-gray-200" onClick={handleDropdownClick}>
                 Events
               </Link>
-              {user && <><Link
-                to="RoomAllotment"
-                className="block px-4 py-2 hover:bg-gray-200"
-              >
-                Room Allotment
-              </Link>
-              
-              <Link
-                to="/LostnFound"
-                className="block px-4 py-2 hover:bg-gray-200"
-              >
-                Lost and Found
-              </Link>
-              <Link to="#" className="block px-4 py-2 hover:bg-gray-200">
-                Community Forum
-              </Link>
-              <Link
-                to="HostelFeedback"
-                className="block px-4 py-2 hover:bg-gray-200"
-              >
-                Feedback
-              </Link>
-              <Link
-                to="HostelLeavingForm"
-                className="block px-4 py-2 hover:bg-gray-200"
-              >
-                Hostel Leaving Registration
-              </Link>
-              </>}
+              {user && (
+                <>
+                  <Link to="RoomAllotment" className="block px-4 py-2 hover:bg-gray-200" onClick={handleDropdownClick}>
+                    Room Allotment
+                  </Link>
+                  <Link to="/LostnFound" className="block px-4 py-2 hover:bg-gray-200" onClick={handleDropdownClick}>
+                    Lost and Found
+                  </Link>
+                  <Link to="http://localhost:8081/" className="block px-4 py-2 hover:bg-gray-200">
+  Community Forum
+</Link> 
+                  <Link to="HostelFeedback" className="block px-4 py-2 hover:bg-gray-200" onClick={handleDropdownClick}>
+                    Feedback
+                  </Link>
+                  <Link to="HostelLeavingForm" className="block px-4 py-2 hover:bg-gray-200" onClick={handleDropdownClick}>
+                    Hostel Leaving Registration
+                  </Link>
+                </>
+              )}
             </div>
           )}
         </div>
 
-        <div
-          className="relative"
-          onMouseEnter={() => toggleDropdown(setMessDropdownVisible, true)}
-          onMouseLeave={() => toggleDropdown(setMessDropdownVisible, false)}
-        >
-          <button className="flex items-center gap-2 px-4 py-2 text-white font-medium rounded-lg hover:text-blue-500 transition-all duration-300">
+        <div className="relative dropdown-container">
+          <button 
+            className="flex items-center gap-2 px-4 py-2 text-white font-medium rounded-lg hover:text-blue-500"
+            onClick={handleMessClick}
+          >
             <span>Mess</span>
-            <span className="text-sm transition-transform duration-300">
-              &#x25BC;
-            </span>
+            <span className="text-sm">&#x25BC;</span>
           </button>
           {isMessDropdownVisible && (
-            <div
-              className="absolute left-0 mt-2 w-40 bg-white text-black border border-gray-300 shadow-lg rounded transition-all duration-300 z-10"
-              onMouseEnter={() => toggleDropdown(setMessDropdownVisible, true)}
-              onMouseLeave={() => toggleDropdown(setMessDropdownVisible, false)}
-            >
-              <Link
-                to="/messschedule"
-                className="block px-4 py-2 hover:bg-gray-200"
-              >
+            <div className="absolute left-0 mt-2 w-40 bg-white text-black border border-gray-300 shadow-lg rounded z-10">
+              <Link to="/messschedule" className="block px-4 py-2 hover:bg-gray-200" onClick={handleDropdownClick}>
                 Schedule and Menu
               </Link>
-              {user && <>
-              <Link to="MessBill" className="block px-4 py-2 hover:bg-gray-200">
-                Mess Bill
-              </Link>
-              <Link
-                to="MessFeedback"
-                className="block px-4 py-2 hover:bg-gray-200"
-              >
-                Feedback
-              </Link>
-              
-              <Link to="/messoff" className="block px-4 py-2 hover:bg-gray-200">
-                Mess Off Facility
-              </Link>
-            </>
-              }
-              </div>
+              {user && (
+                <>
+                  <Link to="MessBill" className="block px-4 py-2 hover:bg-gray-200" onClick={handleDropdownClick}>
+                    Mess Bill
+                  </Link>
+                  <Link to="MessFeedback" className="block px-4 py-2 hover:bg-gray-200" onClick={handleDropdownClick}>
+                    Feedback
+                  </Link>
+                  <Link to="/messoff" className="block px-4 py-2 hover:bg-gray-200" onClick={handleDropdownClick}>
+                    Mess Off Facility
+                  </Link>
+                </>
+              )}
+            </div>
           )}
         </div>
 
@@ -168,22 +152,18 @@ function Navbar() {
           <button className="hover:text-blue-500">Complaint</button>
         </Link>
 
-        
-        {
-          !user && 
+        {!user ? (
           <>
             <button className="px-4 py-2 border border-blue-500 rounded-md hover:bg-blue-500 transition">
               <Link to="/login">Login</Link>
             </button>
-
             <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500 transition">
               <Link to="/Signup">Signup</Link>
             </button>
           </>
-        }
-        {
-          user? <LuCircleUser className="text-4xl cursor-pointer" onClick={gotoProfile}/>:''
-        }
+        ) : (
+          <LuCircleUser className="text-4xl cursor-pointer" onClick={gotoProfile} />
+        )}
       </div>
 
       <div className="md:hidden flex items-center">
@@ -193,150 +173,93 @@ function Navbar() {
       </div>
 
       {isMobileMenuOpen && (
-        <div className="absolute top-24 left-0 w-full bg-gray-800 text-white flex flex-col items-center gap-4 py-4 md:hidden">
-          <Link
-            to="/"
-            className="hover:text-blue-500"
-            onClick={toggleMobileMenu}
-          >
+        <div className="absolute top-20 left-0 w-full bg-gray-800 text-white flex flex-col items-center gap-4 py-4 md:hidden">
+          <Link to="/" className="hover:text-blue-500" onClick={handleDropdownClick}>
             Home
           </Link>
+
           <div className="relative">
             <button
-              className="flex items-center gap-2 px-4 py-2 text-white font-medium rounded-lg hover:text-blue-500 transition-all duration-300"
-              onClick={() =>
-                toggleDropdown(
-                  setHostelDropdownVisible,
-                  !isHostelDropdownVisible
-                )
-              }
+              className="flex items-center gap-2 px-4 py-2 text-white font-medium rounded-lg hover:text-blue-500"
+              onClick={() => setHostelDropdownVisible(!isHostelDropdownVisible)}
             >
               <span>Hostel</span>
-              <span className="text-sm transition-transform duration-300">
-                &#x25BC;
-              </span>
+              <span className="text-sm">&#x25BC;</span>
             </button>
             {isHostelDropdownVisible && (
-              <div className="mt-2 w-40 bg-white text-black border border-gray-300 shadow-lg rounded transition-all duration-300 z-10">
-                
-                <Link
-                  to="/Event"
-                  className="block px-4 py-2 hover:bg-gray-200"
-                  onClick={toggleMobileMenu}
-                >
+              <div className="w-40 bg-white text-black border border-gray-300 shadow-lg rounded">
+                <Link to="/Event" className="block px-4 py-2 hover:bg-gray-200" onClick={handleDropdownClick}>
                   Events
                 </Link>
-                {
-                  user && <><Link
-                  to="#"
-                  className="block px-4 py-2 hover:bg-gray-200"
-                  onClick={toggleMobileMenu}
-                >
-                  Room Allotment
-                </Link>
-                
-          
-                <Link
-                  to="/LostnFound"
-                  className="block px-4 py-2 hover:bg-gray-200"
-                  onClick={toggleMobileMenu}
-                >
-                  Lost and Found
-                </Link>
-                <Link
-                  to="#"
-                  className="block px-4 py-2 hover:bg-gray-200"
-                  onClick={toggleMobileMenu}
-                >
-                  Community Forum
-                </Link>
-                <Link
-                  to="#"
-                  className="block px-4 py-2 hover:bg-gray-200"
-                  onClick={toggleMobileMenu}
-                >
-                  Feedback
-                </Link>
-                <Link
-                  to="#"
-                  className="block px-4 py-2 hover:bg-gray-200"
-                  onClick={toggleMobileMenu}
-                >
-                  Hostel Leaving Registration
-                </Link>
-                </>}
+                {user && (
+                  <>
+                    <Link to="RoomAllotment" className="block px-4 py-2 hover:bg-gray-200" onClick={handleDropdownClick}>
+                      Room Allotment
+                    </Link>
+                    <Link to="/LostnFound" className="block px-4 py-2 hover:bg-gray-200" onClick={handleDropdownClick}>
+                      Lost and Found
+                    </Link>
+                    <Link to="#" className="block px-4 py-2 hover:bg-gray-200" onClick={handleDropdownClick}>
+                      Community Forum
+                    </Link>
+                    <Link to="HostelFeedback" className="block px-4 py-2 hover:bg-gray-200" onClick={handleDropdownClick}>
+                      Feedback
+                    </Link>
+                    <Link to="HostelLeavingForm" className="block px-4 py-2 hover:bg-gray-200" onClick={handleDropdownClick}>
+                      Hostel Leaving Registration
+                    </Link>
+                  </>
+                )}
               </div>
             )}
           </div>
 
           <div className="relative">
             <button
-              className="flex items-center gap-2 px-4 py-2 text-white font-medium rounded-lg hover:text-blue-500 transition-all duration-300"
-              onClick={() =>
-                toggleDropdown(setMessDropdownVisible, !isMessDropdownVisible)
-              }
+              className="flex items-center gap-2 px-4 py-2 text-white font-medium rounded-lg hover:text-blue-500"
+              onClick={() => setMessDropdownVisible(!isMessDropdownVisible)}
             >
               <span>Mess</span>
-              <span className="text-sm transition-transform duration-300">
-                &#x25BC;
-              </span>
+              <span className="text-sm">&#x25BC;</span>
             </button>
             {isMessDropdownVisible && (
-              <div className="mt-2 w-40 bg-white text-black border border-gray-300 shadow-lg rounded transition-all duration-300 z-10">
-                <Link
-                  to="#"
-                  className="block px-4 py-2 hover:bg-gray-200"
-                  onClick={toggleMobileMenu}
-                >
-                  Mess Bill
-                </Link>
-                <Link
-                  to="#"
-                  className="block px-4 py-2 hover:bg-gray-200"
-                  onClick={toggleMobileMenu}
-                >
-                  Feedback
-                </Link>
-                <Link
-                  to="/messschedule"
-                  className="block px-4 py-2 hover:bg-gray-200"
-                  onClick={toggleMobileMenu}
-                >
+              <div className="w-40 bg-white text-black border border-gray-300 shadow-lg rounded">
+                <Link to="/messschedule" className="block px-4 py-2 hover:bg-gray-200" onClick={handleDropdownClick}>
                   Schedule and Menu
                 </Link>
-                <Link
-                  to="/messoff"
-                  className="block px-4 py-2 hover:bg-gray-200"
-                  onClick={toggleMobileMenu}
-                >
-                  Mess Off Facility
-                </Link>
+                {user && (
+                  <>
+                    <Link to="MessBill" className="block px-4 py-2 hover:bg-gray-200" onClick={handleDropdownClick}>
+                      Mess Bill
+                    </Link>
+                    <Link to="MessFeedback" className="block px-4 py-2 hover:bg-gray-200" onClick={handleDropdownClick}>
+                      Feedback
+                    </Link>
+                    <Link to="/messoff" className="block px-4 py-2 hover:bg-gray-200" onClick={handleDropdownClick}>
+                      Mess Off Facility
+                    </Link>
+                  </>
+                )}
               </div>
             )}
           </div>
 
-          <Link to="/complaint" onClick={toggleMobileMenu}>
+          <Link to="/complaint" onClick={handleDropdownClick}>
             <button className="hover:text-blue-500">Complaint</button>
           </Link>
 
-          <button
-            id="dark-mode-toggle"
-            className="text-white hover:text-blue-500"
-            onClick={toggleDarkMode}
-          >
-            {isDarkMode ? <FaSun /> : <FaMoon />}
-          </button>
-
-          <button className="px-4 py-2 border border-blue-500 rounded-md hover:bg-blue-500 transition">
-            <Link to="/login" onClick={toggleMobileMenu}>
-              Login
-            </Link>
-          </button>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500 transition">
-            <Link to="/Signup" onClick={toggleMobileMenu}>
-              Signup
-            </Link>
-          </button>
+          {!user ? (
+            <>
+              <button className="px-4 py-2 border border-blue-500 rounded-md hover:bg-blue-500 transition">
+                <Link to="/login" onClick={handleDropdownClick}>Login</Link>
+              </button>
+              <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500 transition">
+                <Link to="/Signup" onClick={handleDropdownClick}>Signup</Link>
+              </button>
+            </>
+          ) : (
+            <LuCircleUser className="text-4xl cursor-pointer" onClick={() => { gotoProfile(); handleDropdownClick(); }} />
+          )}
         </div>
       )}
     </div>

@@ -1,47 +1,53 @@
-import React,{useState} from 'react';
-import { Link,useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import myHook from '../Context';
+
 function Login() {
-    const [password, setpassword] = useState("");
-    const [email, setemail] = useState("");
-    const {setUser}=myHook();
-    const navigate = useNavigate();
+  const [password, setpassword] = useState("");
+  const [email, setemail] = useState("");
+  const { setUser } = myHook();
+  const navigate = useNavigate();
 
-    const handleSubmit=async(e)=>{
-e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-const data={
-  email,
-  password
-}
+    const data = {
+      email,
+      password
+    };
 
-try{
-  const response = await axios.post('http://localhost:5000/api/v1/auth/login', data);
-  
-  if (response.status === 200) {
-    alert(response.data.message);
-    console.log(response.data);
-    localStorage.setItem('user',JSON.stringify(response.data.user));
-    setUser(response.data.user);
-    
-    setpassword("")
-    setemail("")
-    navigate("/")
-
-  } else {
-    alert('Failed to Login. Please try again.');
-  }
-}catch (error){
-  console.error('Error:', error);
-  alert('An error occurred. Please try again.');
-}
-
+    // Check for admin credentials
+    if (email === "admin@123" && password === "admin") {
+      // If it's admin, navigate to admin dashboard
+      navigate("/admin/dashboard ");
+      return; // Prevent further logic (no need to send request)
     }
 
+    try {
+      const response = await axios.post('http://localhost:5000/api/v1/auth/login', data);
+
+      if (response.status === 200) {
+        alert(response.data.message);
+        console.log(response.data);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        setUser(response.data.user);
+
+        setpassword("");
+        setemail("");
+        navigate("/");
+
+      } else {
+        alert('Failed to Login. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred. Please try again.');
+    }
+  };
 
   return (
-    <div className="bg-gray-900 min-h-screen flex items-center justify-center">
+    <div className="-gbgray-900 min-h-screen flex items-center justify-center">
       <div className="w-full max-w-md bg-gray-800 rounded-lg shadow-lg p-8">
         <h1 className="text-3xl font-bold text-center text-slate-400 mb-6">
           Login
@@ -55,8 +61,8 @@ try{
               type="email"
               name="email"
               id="email"
-              onChange={(e)=>setemail(e.target.value)}
-                autocomplete="email"
+              onChange={(e) => setemail(e.target.value)}
+              autocomplete="email"
               className="bg-gray-700 border border-gray-600 text-white rounded-lg block w-full p-2.5 placeholder-gray-400"
               placeholder="name@company.com"
             />
@@ -69,7 +75,7 @@ try{
               type="password"
               name="password"
               id="password"
-              onChange={(e)=>setpassword(e.target.value)}
+              onChange={(e) => setpassword(e.target.value)}
               className="bg-gray-700 border border-gray-600 text-white rounded-lg block w-full p-2.5 placeholder-gray-400"
               placeholder="*******"
               autocomplete="current-password"
