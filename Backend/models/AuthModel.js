@@ -8,11 +8,15 @@ const userSchema = mongoose.Schema({
     },
     email :{ 
         type:String,
-        required:true
+        required:true,
+        unique: true,
+        lowercase: true,
+        trim: true
     },
     collegeId:{
          type:Number,
-        required:true
+        required:true,
+        unique: true
     },
     password :{
          type:String,
@@ -26,6 +30,15 @@ const userSchema = mongoose.Schema({
     },
     Address:{
         type:String
+    },
+    messBalance: {
+        type: Number,
+        default: 0
+    },
+    role: {
+        type: String,
+        enum: ['student', 'admin'],
+        default: 'student'
     }
 });
 

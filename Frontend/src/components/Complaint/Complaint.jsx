@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
 import myHook from "../Context"
+import { API_ENDPOINTS } from '../../config/api';
+
 function ComplaintForm(r) {
   const {user}=myHook()
   const [complaintType, setComplaintType] = useState("hostel");
@@ -34,10 +36,8 @@ function ComplaintForm(r) {
       details: complaintDetails
     };
 
-    console.log(complaintData)
-
     try {
-      const response = await axios.post("http://localhost:5000/api/v1/hostel/complaint", complaintData);
+      const response = await axios.post(API_ENDPOINTS.COMPLAINT, complaintData);
       if (response.status === 200) {
         alert("Complaint submitted successfully!");
         setComplaintDetails("");

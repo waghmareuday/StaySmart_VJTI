@@ -1,18 +1,39 @@
 const express =require('express');
 const Feedback =require('../models/Feedback'); // Feedback model
+const AuthModel = require('../models/AuthModel');
 const router = express.Router();
 const MessFeedback=require('../models/MessFeedback')
+const { verifyUserToken, requireStudent } = require('../middleware/auth');
+
+router.use(verifyUserToken, requireStudent);
+
+const getAuthenticatedStudentProfile = async (req) => {
+  if (!req.user?.id) return null;
+  return AuthModel.findById(req.user.id)
+    .select('name email')
+    .lean();
+};
 
 
 router.post('/hostel', async (req, res) => {
   try {
-    const { name, email, feedback, rating } = req.body;
+    const profile = await getAuthenticatedStudentProfile(req);
+    const { feedback, rating } = req.body;
+
+    const numericRating = Number(rating);
+    if (!feedback || !Number.isFinite(numericRating) || numericRating < 1 || numericRating > 5) {
+      return res.status(400).json({ message: 'Feedback and rating (1-5) are required.' });
+    }
+
+    if (!profile?.name || !profile?.email) {
+      return res.status(400).json({ message: 'Unable to resolve authenticated student profile.' });
+    }
 
     const newFeedback = new Feedback({
-      name,
-      email,
+      name: profile.name,
+      email: profile.email,
       feedback,
-      rating,
+      rating: numericRating,
     });
 
     await newFeedback.save();
@@ -25,13 +46,23 @@ router.post('/hostel', async (req, res) => {
 });
 router.post('/mess', async (req, res) => {
   try {
-    const { name, email, feedback, rating } = req.body;
+    const profile = await getAuthenticatedStudentProfile(req);
+    const { feedback, rating } = req.body;
+
+    const numericRating = Number(rating);
+    if (!feedback || !Number.isFinite(numericRating) || numericRating < 1 || numericRating > 5) {
+      return res.status(400).json({ message: 'Feedback and rating (1-5) are required.' });
+    }
+
+    if (!profile?.name || !profile?.email) {
+      return res.status(400).json({ message: 'Unable to resolve authenticated student profile.' });
+    }
 
     const newFeedback = new MessFeedback({
-      name,
-      email,
+      name: profile.name,
+      email: profile.email,
       feedback,
-      rating,
+      rating: numericRating,
     });
 
     await newFeedback.save();

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
+import { API_ENDPOINTS } from '../../config/api';
 
 function HostelLeavingForm() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ function HostelLeavingForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/v1/hostel/hostelLeaving', formData);
+      const response = await axios.post(API_ENDPOINTS.HOSTEL_LEAVING, formData);
       if (response.status === 200) {
         alert(response.data.message);
         setFormData({

@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import myHook from "../Context"
+import { API_ENDPOINTS } from '../../config/api';
 
 
 function MessFeedback() {
     const { user } = myHook();
     const [formData, setFormData] = useState({
-        name: user.name,
-        email: user.email,
+        name: user?.name || '',
+        email: user?.email || '',
         feedback: '',
         rating: '',
     });
@@ -25,7 +26,7 @@ function MessFeedback() {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:5000/api/v1/feedback/mess', formData);
+            const response = await axios.post(API_ENDPOINTS.MESS_FEEDBACK, formData);
 
             if (response.status === 200) {
                 alert(response.data.message);

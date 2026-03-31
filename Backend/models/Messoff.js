@@ -1,12 +1,36 @@
-const mongoose =require("mongoose");
+const mongoose = require('mongoose');
 
-const MessOffSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true },
-  option: { type: String, enum: ["Off", "Join"], required: true },
-  date: { type: Date, required: true },
-  createdAt: { type: Date, default: Date.now },
-});
+const messOffSchema = new mongoose.Schema(
+  {
+    studentId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+      index: true
+    },
+    startDate: {
+      type: Date,
+      required: true
+    },
+    endDate: {
+      type: Date,
+      required: true
+    },
+    approvedDays: {
+      type: Number,
+      required: true,
+      min: 0
+    },
+    status: {
+      type: String,
+      enum: ['PENDING', 'APPROVED', 'REJECTED'],
+      default: 'PENDING',
+      index: true
+    }
+  },
+  { timestamps: true }
+);
 
- const messoff=mongoose.model("MessOff", MessOffSchema);
-module.exports=messoff;
+messOffSchema.index({ studentId: 1, startDate: 1, endDate: 1 });
+
+module.exports = mongoose.model('MessOff', messOffSchema);

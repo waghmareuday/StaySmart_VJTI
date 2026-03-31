@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import { Link,useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_ENDPOINTS } from '../../config/api';
 
 function Signup() {
   const [name, setname] = useState("")
@@ -23,7 +24,7 @@ function Signup() {
       password 
     }
     try {
-      const response = await axios.post('http://localhost:5000/api/v1/auth/signup', data);
+      const response = await axios.post(API_ENDPOINTS.SIGNUP, data);
 
       if (response.status === 200) {
         alert(response.data.message);
@@ -44,9 +45,9 @@ function Signup() {
     }
   };
   return (
-    <div className="bg-gradient-to-br bg-gray-900 min-h-screen flex items-center pt-28 justify-center px-12 py-10">
+    <div className="bg-gray-900 min-h-screen flex items-center pt-28 justify-center px-12 py-10">
       <div className="w-full max-w-lg bg-gray-800 rounded-2xl shadow-2xl p-10">
-        <h1 className="text-4xl font-semibold text-center text-slate-400 mb-6">
+        <h1 className="text-4xl font-semibold text-center text-gray-200 mb-6">
           Create an Account
         </h1>
         <p className="text-center text-gray-300 mb-8">

@@ -7,7 +7,13 @@ export const ContextProvider = ({ children }) => {
   const getStoredUser = () => {
     try {
       const userData = localStorage.getItem("user");
-      return userData ? JSON.parse(userData) : null;
+      if (!userData) return null;
+      const user = JSON.parse(userData);
+      // ensure compatibility with older stored objects
+      if (!user.studentId && user.collegeId) {
+        user.studentId = String(user.collegeId);
+      }
+      return user;
     } catch (error) {
       console.error("Error parsing user data:", error);
       return null;
@@ -25,16 +31,33 @@ export const ContextProvider = ({ children }) => {
     }
   }, [user]);
 
-  return <Context.Provider value={{ user, setUser }}>{children}</Context.Provider>;
+  // Logout function
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem("user");
+    localStorage.removeItem("wardenToken");
+    localStorage.removeItem("authToken");
+  };
+
+  // Check if current user is admin
+  const isAdmin = () => {
+    return user && (user.role === 'admin' || user.isAdmin === true);
+  };
+
+  return (
+    <Context.Provider value={{ user, setUser, logout, isAdmin }}>
+      {children}
+    </Context.Provider>
+  );
 };
 
 // Custom hook to use context
-const myHook = () => {
+const useAppContext = () => {
   const context = useContext(Context);
   if (!context) {
-    throw new Error("myHook must be used within a ContextProvider");
+    throw new Error("useAppContext must be used within a ContextProvider");
   }
   return context;
 };
 
-export default myHook;
+export default useAppContext;

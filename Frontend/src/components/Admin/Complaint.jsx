@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
+import { API_ENDPOINTS } from '../../config/api';
 
 function Complaint() {
   const [data, setData] = useState([]);
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/v1/admin/Complaint");
-      console.log(response);
+      const response = await axios.get(API_ENDPOINTS.ADMIN_COMPLAINT);
       setData(response.data.Complaint);
     } catch (error) {
       console.error("Error fetching complaints:", error);

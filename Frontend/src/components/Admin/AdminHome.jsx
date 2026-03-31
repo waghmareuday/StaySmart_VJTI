@@ -7,19 +7,15 @@ import { Outlet } from 'react-router-dom'
 function AdminHome() {
     // const { sidebarvalue } = themeHook
     return (
-        <div className='bg-[#f5f5f5] w-full h-[90vh]'>
+        <div className='bg-gray-900 min-h-screen'>
             <Navbar />
-            <div className=' grid grid-col-1 min-[900px]:grid-cols-[17%_auto]'>
-                <div className=' '>
+            <div className='pt-24 px-4 md:px-6 pb-6'>
+                <div className='mx-auto max-w-[1500px] grid grid-cols-1 lg:grid-cols-[260px_minmax(0,1fr)] gap-4'>
                     <Sidebar />
-                    
+                    <main className='min-w-0'>
+                        <Outlet />
+                    </main>
                 </div>
-                <div >
-                    <Outlet />
-                </div>
-                {/* <div className=' hidden min-[900px]:block'>
-                    <Outlet />
-                </div> */}
             </div>
         </div>
     )

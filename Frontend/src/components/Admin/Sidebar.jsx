@@ -1,26 +1,60 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import {
+  FaBullhorn,
+  FaClipboardList,
+  FaExchangeAlt,
+  FaHome,
+  FaMoon,
+  FaMoneyBillWave,
+  FaRegCommentDots,
+  FaTools,
+  FaWrench
+} from 'react-icons/fa';
+
+const NAV_ITEMS = [
+  { to: '/admin/dashboard', label: 'Dashboard', icon: FaHome },
+  { to: '/admin/HostelAllotment', label: 'Hostel Allotment', icon: FaTools },
+  { to: '/admin/room-swaps', label: 'Room Swaps', icon: FaExchangeAlt },
+  { to: '/admin/maintenance', label: 'Maintenance', icon: FaWrench },
+  { to: '/admin/night-out', label: 'Night Out Passes', icon: FaMoon },
+  { to: '/admin/notices', label: 'Notice Board', icon: FaBullhorn },
+  { to: '/admin/dues', label: 'Dues Management', icon: FaMoneyBillWave },
+  { to: '/admin/attendance', label: 'Attendance Reports', icon: FaClipboardList },
+  { to: '/admin/messoff', label: 'Mess Off', icon: FaRegCommentDots },
+  { to: '/admin/complaint', label: 'Complaints', icon: FaRegCommentDots },
+  { to: '/admin/hostelfeedback', label: 'Hostel Feedback', icon: FaRegCommentDots },
+  { to: '/admin/messfeedback', label: 'Mess Feedback', icon: FaRegCommentDots }
+];
 
 function Sidebar() {
   return (
-    <div className='w-[250px] mt-1 h-[90vh] bg-gray-800 z-20'>
-      <div className='p-4'>
-        <ul className='space-y-4 justify-center flex flex-col'>
-          <Link to="/admin/dashboard" className='p-1 text-white cursor-pointer'>
-            Dashboard
-            </Link>
-          <Link to="/admin/HostelAllotment" className='p-1 text-white cursor-pointer'>Hostell Allotment</Link>
- 
-          <Link to="/admin/messoff" className='p-1 text-white cursor-pointer'>MessOff</Link>
+    <aside className="bg-gray-800 border border-gray-700 rounded-2xl shadow-sm p-4 lg:sticky lg:top-24 lg:h-[calc(100vh-7rem)] lg:overflow-y-auto">
+      <p className="text-xs uppercase tracking-wide font-semibold text-gray-400 px-3 mb-3">Admin Navigation</p>
 
-          <Link to="/admin/Complaint" className='p-1 text-white cursor-pointer'>Complaints</Link>
-          <Link to="/admin/hostelfeedback" className='p-1 text-white cursor-pointer'>Hostel Feedbacks</Link>
-          <Link to="/admin/messfeedback" className='p-1 text-white cursor-pointer'>Mess Feedbacks</Link>
-
-        </ul>
-      </div>
-    </div>
-  )
+      <nav className="space-y-1">
+        {NAV_ITEMS.map((item) => {
+          const Icon = item.icon;
+          return (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-sm font-medium ${
+                  isActive
+                    ? 'bg-indigo-600 text-white shadow-sm'
+                    : 'text-gray-200 hover:bg-gray-700'
+                }`
+              }
+            >
+              <Icon className="text-sm" />
+              <span>{item.label}</span>
+            </NavLink>
+          );
+        })}
+      </nav>
+    </aside>
+  );
 }
 
-export default Sidebar
+export default Sidebar;

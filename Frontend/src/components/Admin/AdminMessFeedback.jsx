@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { API_ENDPOINTS } from '../../config/api';
 
 function AdminMessFeedback() {
   const [feedbackData, setFeedbackData] = useState([]); // Initialize with an empty array
@@ -9,10 +10,7 @@ function AdminMessFeedback() {
   // Fetch feedback data from API
   const fetchFeedbackData = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5000/api/v1/admin/messfeedback"
-      );
-      console.log(response.data); // Ensure correct API response format
+      const response = await axios.get(API_ENDPOINTS.ADMIN_MESS_FEEDBACK);
       setFeedbackData(response.data.messfeedback || []); // Ensure it's an array
     } catch (error) {
       console.error("Error:", error);

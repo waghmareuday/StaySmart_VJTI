@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FaRegLightbulb, FaEnvelope, FaPhone } from "react-icons/fa";
 import NoticeBoard from "./NoticeBoard";
@@ -6,69 +6,92 @@ import hostelImg from "../assets/hostelimg.jpg";
 import djnight from "../assets/djnight.jpg";
 import holi from "../assets/holi.jpg";
 import cricket from "../assets/cricket.jpg";
+import { API_ENDPOINTS, apiFetch } from "../config/api";
+
+const HERO_MESSAGES = [
+  "Welcome to VJTI StaySmart",
+  "Redefining Hostel Living",
+  "Your Smart Hostel Solution",
+];
 
 function Home() {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [notices, setNotices] = useState([]);
+  const [noticesLoading, setNoticesLoading] = useState(true);
+  const [noticeError, setNoticeError] = useState("");
+  const [noticeMeta, setNoticeMeta] = useState({ maxVisible: 0 });
 
   useEffect(() => {
     const darkMode = localStorage.getItem("darkMode") === "true";
     setIsDarkMode(darkMode);
   }, []);
 
-  const notices = [
-    {
-      title: "Hostel Registration Extended",
-      description: "Deadline extended to Jan 31, 2025. Complete your forms soon!",
-    },
-    {
-      title: "Annual Hostel Fest",
-      description: "Join us on Feb 10th for the Annual Hostel Fest. Fun and excitement await!",
-    },
-    {
-      title: "Mess Feedback",
-      description: "New menu testing is underway. Share your feedback on the portal.",
-    },
-  ];
+  useEffect(() => {
+    let isCancelled = false;
 
-  const messages = [
-    "Welcome to VJTI StaySmart",
-    "Redefining Hostel Living",
-    "Your Smart Hostel Solution",
-  ];
+    const fetchNotices = async () => {
+      setNoticesLoading(true);
+      setNoticeError("");
+
+      try {
+        const res = await apiFetch(API_ENDPOINTS.NOTICES_PUBLIC);
+        const data = await res.json();
+
+        if (!res.ok || !data.success) {
+          throw new Error(data.message || "Unable to load notices");
+        }
+
+        if (!isCancelled) {
+          setNotices(Array.isArray(data.data) ? data.data : []);
+          setNoticeMeta(data.meta || { maxVisible: 0 });
+        }
+      } catch (error) {
+        console.error("Notice fetch error:", error);
+        if (!isCancelled) {
+          setNoticeError("Could not load notices right now.");
+        }
+      } finally {
+        if (!isCancelled) {
+          setNoticesLoading(false);
+        }
+      }
+    };
+
+    fetchNotices();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, []);
 
   const [currentText, setCurrentText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
-  const [colorIndex, setColorIndex] = useState(0);
-
-  const colors = ["#60a5fa", "#ff6347", "#32cd32", "#ff1493"];
 
   useEffect(() => {
+    const activeMessage = HERO_MESSAGES[currentIndex];
     const typewriter = setInterval(() => {
-      setCurrentText((prev) =>
-        messages[currentIndex].slice(0, charIndex + 1)
-      );
+      setCurrentText(activeMessage.slice(0, charIndex + 1));
       setCharIndex((prev) => prev + 1);
 
-      if (charIndex === messages[currentIndex].length) {
+      if (charIndex === activeMessage.length) {
         clearInterval(typewriter);
         setTimeout(() => {
           setCharIndex(0);
-          setCurrentIndex((prev) => (prev + 1) % messages.length);
-          setColorIndex((prev) => (prev + 1) % colors.length);
+          setCurrentIndex((prev) => (prev + 1) % HERO_MESSAGES.length);
         }, 2000);
       }
     }, 100);
 
     return () => clearInterval(typewriter);
-  }, [charIndex, currentIndex, messages, colorIndex]);
+  }, [charIndex, currentIndex]);
 
   return (
     <div className={`home-container ${isDarkMode ? 'dark' : ''}`}>
       {/* Hero Section */}
       <div className="relative h-screen bg-gradient-to-b from-[#1f2937] to-[#111827] text-white overflow-hidden">
         {/* Background Animated Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-indigo-500 to-purple-500 opacity-10 animate-gradient" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-indigo-500 to-cyan-500 opacity-10 animate-gradient" />
         {/* Hero Content */}
         <div className="relative z-10 flex flex-col md:flex-row items-center justify-between h-full px-8">
           {/* Left Section */}
@@ -140,7 +163,12 @@ function Home() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
         >
-          <NoticeBoard notices={notices} />
+          <NoticeBoard
+            notices={notices}
+            loading={noticesLoading}
+            error={noticeError}
+            maxVisible={noticeMeta.maxVisible}
+          />
         </motion.div>
       </div>
 

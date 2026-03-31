@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios'; 
 import Listings from './Listings';
+import { API_ENDPOINTS } from '../../config/api';
 
 function LostFoundForm() {
   const [formData, setFormData] = useState({
@@ -31,7 +32,7 @@ function LostFoundForm() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/api/v1/hostel/lostnfound', formData);
+      const response = await axios.post(API_ENDPOINTS.LOST_N_FOUND, formData);
 
       if (response.status === 200) {
         alert(response.data.message);
