@@ -8,7 +8,6 @@ function Login() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [role, setRole] = useState('student');
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const { setUser } = myHook();
@@ -18,36 +17,18 @@ function Login() {
   const from = location.state?.from?.pathname || "/";
   const routeMessage = location.state?.message || '';
 
-  const HARD_CODED_IDS = {
-    admin: {
-      email: 'admin@123',
-      password: 'admin',
-      label: 'Admin Login'
-    },
-    rectors: [
-      {
-        email: 'chiefwarden@vjti.ac.in',
-        password: 'chief123',
-        label: 'Chief Rector'
-      },
-      {
-        email: 'wardena@vjti.ac.in',
-        password: 'warden123',
-        label: 'Rector A Block'
-      },
-      {
-        email: 'wardenc@vjti.ac.in',
-        password: 'warden123',
-        label: 'Rector PG Hostel (C + PG)'
-      }
-    ]
+  const getStudentRedirect = () => {
+    if (from && from !== '/Login' && from !== '/Signup') {
+      return from;
+    }
+    return '/student/dashboard';
   };
 
-  const fillCredentials = (selectedRole, selectedEmail, selectedPassword) => {
-    setRole(selectedRole);
-    setEmail(selectedEmail);
-    setPassword(selectedPassword);
-    setError('');
+  const getWardenRedirect = () => {
+    if (from && (from.startsWith('/Attendance') || from.startsWith('/Warden'))) {
+      return from;
+    }
+    return '/Attendance';
   };
 
   const handleSubmit = async (e) => {
@@ -56,94 +37,90 @@ function Login() {
     setLoading(true);
 
     try {
-      // Warden login
-      if (role === 'warden') {
-        const response = await fetch(API_ENDPOINTS.WARDEN_LOGIN, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
-        });
-        const data = await response.json();
+      const normalizedEmail = String(email || '').trim().toLowerCase();
 
-        if (data.success) {
-          const wardenUser = {
-            ...data.warden,
-            role: 'warden',
-            isWarden: true,
-            isAdmin: false
-          };
-          localStorage.setItem('user', JSON.stringify(wardenUser));
-          localStorage.setItem('wardenToken', data.token);
-          localStorage.removeItem('authToken');
-          setUser(wardenUser);
-          navigate("/Attendance");
-          return;
-        } else {
-          setError(data.message || 'Invalid warden credentials');
-          setLoading(false);
-          return;
-        }
-      }
-
-      // Student/Admin login via unified backend auth endpoint
-      const response = await axios.post(API_ENDPOINTS.LOGIN, { email, password });
+      // Try student/admin auth endpoint first.
+      const response = await axios.post(API_ENDPOINTS.LOGIN, {
+        email: normalizedEmail,
+        password
+      });
 
       if (response.status === 200 && response.data.user && response.data.success) {
         const serverUser = response.data.user;
         const serverRole = serverUser.role || 'student';
 
-        if (role === 'admin' && serverRole !== 'admin' && serverUser.isAdmin !== true) {
-          setError('Admin access denied for this account');
-          setLoading(false);
-          return;
-        }
-
-        if (role === 'student' && (serverRole === 'admin' || serverUser.isAdmin === true)) {
-          setError('Use Admin role tab to login with this account');
-          setLoading(false);
-          return;
-        }
-
-        const userObj = { 
+        const userObj = {
           ...serverUser,
           studentId: String(serverUser.collegeId || serverUser.studentId || ''),
           role: serverRole,
           isAdmin: serverUser.isAdmin === true || serverRole === 'admin'
         };
-        
+
         localStorage.setItem('user', JSON.stringify(userObj));
         if (response.data.token) {
           localStorage.setItem('authToken', response.data.token);
         }
         localStorage.removeItem('wardenToken');
         setUser(userObj);
+
         if (userObj.isAdmin) {
           navigate('/admin/dashboard', { replace: true });
         } else {
-          navigate(from, { replace: true });
+          navigate(getStudentRedirect(), { replace: true });
         }
-      } else {
-        setError(response.data.message || 'Invalid credentials');
+        return;
       }
-    } catch (error) {
-      console.error('Login error:', error);
-      setError(error.response?.data?.message || 'An error occurred. Please try again.');
+    } catch (authError) {
+      const authFailedWithBadCreds = authError.response?.status === 400 || authError.response?.status === 401;
+
+      if (!authFailedWithBadCreds) {
+        setError(authError.response?.data?.message || 'Unable to login right now. Please try again.');
+        setLoading(false);
+        return;
+      }
+
+      // If not a student/admin account, try warden auth endpoint.
+      try {
+        const wardenResponse = await fetch(API_ENDPOINTS.WARDEN_LOGIN, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: String(email || '').trim().toLowerCase(), password })
+        });
+        const wardenData = await wardenResponse.json();
+
+        if (wardenResponse.ok && wardenData.success && wardenData.warden) {
+          const wardenUser = {
+            ...wardenData.warden,
+            role: 'warden',
+            isWarden: true,
+            isAdmin: false
+          };
+
+          localStorage.setItem('user', JSON.stringify(wardenUser));
+          localStorage.setItem('wardenToken', wardenData.token);
+          localStorage.removeItem('authToken');
+          setUser(wardenUser);
+          navigate(getWardenRedirect(), { replace: true });
+          return;
+        }
+
+        setError(wardenData.message || authError.response?.data?.message || 'Invalid email or password');
+      } catch {
+        setError(authError.response?.data?.message || 'Invalid email or password');
+      }
     }
     setLoading(false);
-  };
-
-  const roleConfig = {
-    student: { icon: '🎓', label: 'Student' },
-    warden: { icon: '🛡️', label: 'Rector' },
-    admin: { icon: '⚙️', label: 'Admin' }
   };
 
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4 py-10 pt-28">
       <div className="w-full max-w-md space-y-4">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-slate-300">StaySmart Login</h1>
-          <p className="text-sm text-gray-300 mt-1">Access your student, rector, or admin portal</p>
+        <div className="text-center space-y-2">
+          <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xl font-bold">
+            SS
+          </div>
+          <h1 className="text-3xl font-bold text-slate-300">Welcome Back</h1>
+          <p className="text-sm text-gray-300 mt-1">Login to continue to StaySmart</p>
         </div>
 
         <div className="bg-gray-800 rounded-2xl border border-gray-700 shadow-2xl p-6">
@@ -153,29 +130,11 @@ function Login() {
             </div>
           )}
 
-          <div className="grid grid-cols-3 gap-2 mb-6">
-            {Object.entries(roleConfig).map(([key, { icon, label }]) => (
-              <button
-                key={key}
-                type="button"
-                onClick={() => setRole(key)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                  role === key
-                    ? 'bg-indigo-600 text-white'
-                    : 'bg-gray-700 text-gray-200 hover:bg-gray-600'
-                }`}
-              >
-                <span>{icon}</span>
-                <span>{label}</span>
-              </button>
-            ))}
-          </div>
-
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Email Input */}
             <div>
               <label className="block text-sm font-medium text-gray-200 mb-2">
-                Email Address
+                Email
               </label>
               <div className="relative">
                 <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">📧</span>
@@ -185,7 +144,7 @@ function Login() {
                   onChange={(e) => setEmail(e.target.value)}
                   autoComplete="email"
                   className="w-full bg-gray-800 border border-gray-600 text-white rounded-xl pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all placeholder-gray-400"
-                  placeholder={role === 'warden' ? 'chiefwarden@vjti.ac.in' : role === 'admin' ? 'admin@123' : 'student@vjti.ac.in'}
+                  placeholder="name@domain.com"
                   required
                 />
               </div>
@@ -239,54 +198,20 @@ function Login() {
                   </svg>
                   Signing in...
                 </span>
-              ) : (
-                `Sign in as ${roleConfig[role].label}`
-              )}
+              ) : 'Sign in'}
             </button>
 
-            {/* Sign Up Link */}
-            {role === 'student' && (
-              <p className="text-center text-gray-300 text-sm">
-                Don't have an account?{' '}
-                <Link to="/Signup" className="text-indigo-400 hover:text-indigo-300 font-medium transition-colors">
-                  Sign up
-                </Link>
-              </p>
-            )}
+            <p className="text-center text-gray-300 text-sm">
+              Don't have an account?{' '}
+              <Link to="/Signup" className="text-indigo-400 hover:text-indigo-300 font-medium transition-colors">
+                Sign up
+              </Link>
+            </p>
+
+            <p className="text-center text-xs text-gray-400">
+              For warden and admin access, use your assigned credentials.
+            </p>
           </form>
-        </div>
-
-        <div className="bg-gray-800 rounded-2xl border border-gray-700 shadow-2xl p-4">
-          <h2 className="text-sm font-semibold text-slate-300 mb-3">Hardcoded IDs (As Requested)</h2>
-          <div className="space-y-2 text-sm">
-            <div className="rounded-lg border border-gray-600 px-3 py-2">
-              <p className="font-medium text-slate-300">Admin</p>
-              <p className="text-gray-300">ID: {HARD_CODED_IDS.admin.email}</p>
-              <p className="text-gray-300">Password: {HARD_CODED_IDS.admin.password}</p>
-              <button
-                type="button"
-                onClick={() => fillCredentials('admin', HARD_CODED_IDS.admin.email, HARD_CODED_IDS.admin.password)}
-                className="mt-2 text-xs font-medium text-indigo-300 underline"
-              >
-                Use this ID
-              </button>
-            </div>
-
-            {HARD_CODED_IDS.rectors.map((rector) => (
-              <div key={rector.email} className="rounded-lg border border-gray-600 px-3 py-2">
-                <p className="font-medium text-slate-300">{rector.label}</p>
-                <p className="text-gray-300">ID: {rector.email}</p>
-                <p className="text-gray-300">Password: {rector.password}</p>
-                <button
-                  type="button"
-                  onClick={() => fillCredentials('warden', rector.email, rector.password)}
-                  className="mt-2 text-xs font-medium text-indigo-300 underline"
-                >
-                  Use this ID
-                </button>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </div>

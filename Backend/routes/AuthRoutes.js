@@ -66,10 +66,10 @@ router.post('/login', async (req, res) => {
         return res.status(400).send({ success: false, message: 'Email and password are required' });
       }
 
-      // Environment-backed admin login (keeps backwards compatibility if env is not set)
-      const adminEmail = (process.env.ADMIN_EMAIL || 'admin@123').toLowerCase();
-      const adminPassword = process.env.ADMIN_PASSWORD || 'admin';
-      if (normalizedEmail === adminEmail && password === adminPassword) {
+      // Environment-backed admin login (disabled if credentials are not configured)
+      const adminEmail = String(process.env.ADMIN_EMAIL || '').trim().toLowerCase();
+      const adminPassword = String(process.env.ADMIN_PASSWORD || '');
+      if (adminEmail && adminPassword && normalizedEmail === adminEmail && password === adminPassword) {
         const token = jwt.sign(
           {
             id: 'admin',
