@@ -10,8 +10,34 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 if (!process.env.MONGO_URI) {
   dotenv.config();
 }
-app.use(cors());
+
+const configuredOrigins = String(process.env.CORS_ORIGIN || '')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+if (configuredOrigins.length > 0) {
+  app.use(cors({
+    origin: (origin, callback) => {
+      if (!origin || configuredOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error('Not allowed by CORS'));
+    }
+  }));
+} else {
+  app.use(cors());
+}
+
 app.use(express.json());
+
+app.get('/api/v1/health', (req, res) => {
+  res.status(200).json({
+    success: true,
+    service: 'StaySmart Backend API',
+    timestamp: new Date().toISOString()
+  });
+});
 
 
 
