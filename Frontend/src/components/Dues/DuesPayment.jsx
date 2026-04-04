@@ -104,7 +104,7 @@ export default function DuesPayment() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 p-6">
+    <div className="min-h-screen bg-gray-900 text-gray-100 p-4 sm:p-6 pt-24">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
@@ -113,7 +113,7 @@ export default function DuesPayment() {
         </div>
 
         {/* Summary Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <div className="bg-gray-800 rounded-xl p-4 shadow-sm border-l-4 border-red-500">
             <p className="text-sm text-gray-400">Total Pending</p>
             <p className="text-2xl font-bold text-red-600">{formatCurrency(summary.totalPending || 0)}</p>
@@ -133,7 +133,7 @@ export default function DuesPayment() {
         </div>
 
         {/* Tabs */}
-        <div className="flex justify-center gap-4 mb-6">
+        <div className="flex flex-wrap justify-center gap-3 mb-6">
           <button
             onClick={() => setActiveTab('pending')}
             className={`px-6 py-3 rounded-xl font-semibold transition ${
@@ -187,7 +187,7 @@ export default function DuesPayment() {
                   due.status === 'PAID' ? 'border-green-500' : 'border-yellow-500'
                 }`}
               >
-                <div className="flex items-start justify-between mb-4">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
                   <div className="flex items-center gap-3">
                     <span className="text-3xl">{DUE_TYPES[due.dueType]?.icon || '📋'}</span>
                     <div>
@@ -209,8 +209,8 @@ export default function DuesPayment() {
                   <p className="text-gray-400 text-sm mb-4">{due.description}</p>
                 )}
 
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4 text-sm">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                  <div className="flex flex-wrap items-center gap-3 text-sm">
                     <span className={`px-3 py-1 rounded-full border ${STATUS_BADGES[due.status]}`}>
                       {due.status === 'PENDING' && isOverdue(due) ? 'OVERDUE' : due.status?.replace('_', ' ')}
                     </span>
@@ -227,7 +227,7 @@ export default function DuesPayment() {
                   {['PENDING', 'OVERDUE', 'PARTIALLY_PAID'].includes(due.status) && (
                     <button
                       onClick={() => openPaymentModal(due)}
-                      className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition font-medium"
+                      className="w-full sm:w-auto px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition font-medium"
                     >
                       Pay {formatCurrency(due.remainingAmount)}
                     </button>

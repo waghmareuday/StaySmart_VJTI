@@ -178,7 +178,7 @@ function WardenNightOutManager() {
         </div>
 
         {stats && (
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
             <StatCard label="Pending" value={stats.totalPending} tone="yellow" />
             <StatCard label="Approved" value={stats.approved || 0} tone="green" />
             <StatCard label="Currently Out" value={stats.currentlyOut} tone="blue" />

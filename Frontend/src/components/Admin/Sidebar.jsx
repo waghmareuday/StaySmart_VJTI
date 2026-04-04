@@ -32,7 +32,7 @@ function Sidebar() {
     <aside className="bg-gray-800 border border-gray-700 rounded-2xl shadow-sm p-4 lg:sticky lg:top-24 lg:h-[calc(100vh-7rem)] lg:overflow-y-auto">
       <p className="text-xs uppercase tracking-wide font-semibold text-gray-400 px-3 mb-3">Admin Navigation</p>
 
-      <nav className="space-y-1">
+      <nav className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-1">
         {NAV_ITEMS.map((item) => {
           const Icon = item.icon;
           return (

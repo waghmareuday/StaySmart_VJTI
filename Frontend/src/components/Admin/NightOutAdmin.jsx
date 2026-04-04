@@ -150,10 +150,10 @@ export default function NightOutAdmin() {
   };
 
   return (
-    <div className="p-6 bg-gray-900 text-gray-100 min-h-screen">
+    <div className="p-4 sm:p-6 bg-gray-900 text-gray-100 min-h-screen">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
           <h1 className="text-2xl font-bold text-gray-100">Night Out Pass Management</h1>
           <button
             onClick={handleMarkOverdue}
@@ -164,7 +164,7 @@ export default function NightOutAdmin() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
           <div className="bg-gray-800 p-4 rounded-xl shadow-sm border-l-4 border-yellow-500">
             <p className="text-sm text-gray-400">Pending</p>
             <p className="text-2xl font-bold text-yellow-600">{stats.totalPending || 0}</p>
@@ -386,7 +386,7 @@ export default function NightOutAdmin() {
         {/* Details Modal */}
         {selectedPass && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <div className="bg-gray-800 border border-gray-700 rounded-2xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto text-gray-100">
+            <div className="bg-gray-800 border border-gray-700 rounded-2xl p-4 sm:p-6 w-full max-w-lg max-h-[85vh] md:max-h-[90vh] overflow-y-auto text-gray-100">
               <div className="flex justify-between items-start mb-4">
                 <h3 className="text-xl font-bold">Pass Details</h3>
                 <button
@@ -398,7 +398,7 @@ export default function NightOutAdmin() {
               </div>
 
               <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <p className="text-sm text-gray-400">Student</p>
                     <p className="font-medium">{selectedPass.studentName}</p>
@@ -420,7 +420,7 @@ export default function NightOutAdmin() {
                   <p className="font-medium">{selectedPass.reason}</p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <p className="text-sm text-gray-400">Departure</p>
                     <p className="font-medium">{new Date(selectedPass.departureDate).toLocaleString()}</p>
@@ -431,7 +431,7 @@ export default function NightOutAdmin() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <p className="text-sm text-gray-400">Contact</p>
                     <p className="font-medium">{selectedPass.contactNumber || 'N/A'}</p>

@@ -47,10 +47,10 @@ function HostelLeavingForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center pt-28 bg-gray-900 py-10">
-      <div className="w-full max-w-4xl p-8 bg-gray-800 rounded-lg shadow-lg">
+    <div className="min-h-screen flex items-center justify-center pt-24 bg-gray-900 px-4 py-8">
+      <div className="w-full max-w-4xl p-4 sm:p-6 md:p-8 bg-gray-800 rounded-lg shadow-lg">
         <h1 className="text-2xl font-bold text-center text-blue-400 mb-6">Hostel Leaving Form</h1>
-        <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-6">
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label className="text-white block mb-2">Full Name</label>
             <input type="text" name="name" value={formData.name} onChange={handleChange} className="w-full p-2.5 rounded-lg bg-gray-700 text-white border border-gray-600" placeholder="John Doe"/>
@@ -67,7 +67,7 @@ function HostelLeavingForm() {
             <label className="text-white block mb-2">Date of Departure</label>
             <input type="date" name="dateOfDeparture" value={formData.dateOfDeparture} onChange={handleChange} className="w-full p-2.5 rounded-lg bg-gray-700 text-white border border-gray-600"/>
           </div>
-          <div className="col-span-2">
+          <div className="md:col-span-2">
             <label className="text-white block mb-2">Reason for Leaving</label>
             <textarea name="reason" value={formData.reason} onChange={handleChange} className="w-full p-2.5 rounded-lg bg-gray-700 text-white border border-gray-600" placeholder="Explain your reason for leaving" rows="4"></textarea>
           </div>
@@ -75,7 +75,7 @@ function HostelLeavingForm() {
             <label className="text-white block mb-2">Contact Number</label>
             <input type="text" name="contact" value={formData.contact} onChange={handleChange} className="w-full p-2.5 rounded-lg bg-gray-700 text-white border border-gray-600" placeholder="9876543210"/>
           </div>
-          <div className="col-span-2 text-center">
+          <div className="md:col-span-2 text-center">
             <button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-lg">Submit Form</button>
           </div>
         </form>

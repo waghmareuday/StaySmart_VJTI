@@ -251,9 +251,9 @@ function MessOff() {
   };
 
   return (
-    <div className="bg-gray-900 text-gray-100 min-h-screen p-6">
+    <div className="bg-gray-900 text-gray-100 min-h-screen p-4 sm:p-6">
       <div className="max-w-7xl mx-auto space-y-6">
-        <div className="flex items-center justify-between gap-3">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
             <h1 className="text-2xl font-bold">MessOff & UTR Verification</h1>
             <p className="text-sm text-gray-400">Approve or reject mess-off requests and UTR submissions.</p>
@@ -320,7 +320,7 @@ function MessOff() {
           </div>
 
           {generationSummary && (
-            <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-sm">
               <div className="bg-gray-900 border border-gray-700 rounded px-3 py-2">
                 <p className="text-gray-400">Allotted Students</p>
                 <p className="text-gray-100 font-semibold">{generationSummary.totalAllotted || 0}</p>
@@ -343,7 +343,7 @@ function MessOff() {
 
         {isPreviewOpen && (
           <div className="fixed inset-0 z-50 bg-black/70 p-4 flex items-center justify-center">
-            <div className="w-full max-w-6xl max-h-[90vh] bg-gray-800 border border-gray-700 rounded-xl shadow-2xl overflow-hidden">
+            <div className="w-full max-w-[95vw] md:max-w-6xl max-h-[90vh] bg-gray-800 border border-gray-700 rounded-xl shadow-2xl overflow-hidden">
               <div className="px-5 py-4 border-b border-gray-700 flex items-center justify-between">
                 <div>
                   <h3 className="text-lg font-semibold text-gray-100">Monthly Mess Bill Preview</h3>
@@ -358,7 +358,7 @@ function MessOff() {
               </div>
 
               {previewSummary && (
-                <div className="p-4 border-b border-gray-700 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-3 text-sm">
+                <div className="p-4 border-b border-gray-700 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-8 gap-3 text-sm">
                   <div className="bg-gray-900 border border-gray-700 rounded px-3 py-2">
                     <p className="text-gray-400">Allotted</p>
                     <p className="font-semibold">{previewSummary.totalAllotted || 0}</p>

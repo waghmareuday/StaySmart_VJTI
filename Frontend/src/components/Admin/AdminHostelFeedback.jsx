@@ -37,7 +37,7 @@ function AdminHostelFeedback() {
 
   return (
     // <div className="max-w-4xl mx-auto mt-10 p-5 bg-white shadow-md rounded-lg">
-    <div className="w-[100%] h-[90vh] text-white bg-gray-800 mt-1 p-4">
+    <div className="w-full min-h-[calc(100vh-6rem)] text-white bg-gray-800 mt-1 p-3 sm:p-4">
     <h2 className="text-2xl font-bold mb-4">Admin Feedback Panel</h2>
 
       {/* Search Input */}
@@ -58,8 +58,8 @@ function AdminHostelFeedback() {
       </button>
 
       {/* Feedback Table */}
-      <div className="overflow-x-auto overflow-y-auto h-[450px]">
-        <table className="w-full border-collapse border overflow-y-auto h-[80vh]">
+      <div className="overflow-x-auto overflow-y-auto max-h-[65vh]">
+        <table className="min-w-[640px] w-full border-collapse border">
           <thead className="sticky top-0 ">
             <tr className="bg-gray-700">
               <th className="p-2 border">Name</th>

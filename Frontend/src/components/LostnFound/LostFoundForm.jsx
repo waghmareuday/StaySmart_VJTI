@@ -54,7 +54,7 @@ function LostFoundForm() {
   };
 
   return (
-    <div className="bg-gray-800 shadow-md p-6 w-100 h-full flex flex-col justify-center items-center pb-4 pt-24">
+    <div className="bg-gray-800 shadow-md w-full min-h-screen flex flex-col items-center px-4 pt-24 pb-8">
       <section className="text-center mb-8">
         <h1 className="headline text-4xl font-bold mb-4 text-[#60a5fa]">Lost and Found</h1>
         <p className="text-white">
@@ -62,7 +62,7 @@ function LostFoundForm() {
         </p>
       </section>
 
-      <div className="bg-gray-700 rounded-lg shadow-md p-6 w-[60%]">
+      <div className="bg-gray-700 rounded-lg shadow-md p-4 sm:p-6 w-full max-w-3xl">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="form-group">
             <label htmlFor="itemType" className="block text-white font-semibold">Type of Item:</label>

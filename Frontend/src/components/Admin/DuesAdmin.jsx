@@ -233,12 +233,12 @@ export default function DuesAdmin() {
   };
 
   return (
-    <div className="p-6 bg-gray-900 text-gray-100 min-h-screen">
+    <div className="p-4 sm:p-6 bg-gray-900 text-gray-100 min-h-screen">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
           <h1 className="text-2xl font-bold text-gray-100">Dues & Payment Management</h1>
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-3">
             <button
               onClick={handleMarkOverdue}
               className="px-4 py-2 bg-red-900/40 text-red-300 rounded-lg hover:bg-red-900/60 text-sm"
@@ -255,7 +255,7 @@ export default function DuesAdmin() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-6">
           <div className="bg-gray-800 p-4 rounded-xl shadow-sm border-l-4 border-yellow-500">
             <p className="text-sm text-gray-400">Pending</p>
             <p className="text-2xl font-bold text-yellow-600">{stats.totalPending || 0}</p>
@@ -425,11 +425,11 @@ export default function DuesAdmin() {
         {/* Create Due Modal */}
         {createModal && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <div className="bg-gray-800 border border-gray-700 rounded-2xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto text-gray-100">
+            <div className="bg-gray-800 border border-gray-700 rounded-2xl p-4 sm:p-6 w-full max-w-lg max-h-[85vh] md:max-h-[90vh] overflow-y-auto text-gray-100">
               <h3 className="text-xl font-bold mb-4">Create New Due</h3>
               
               <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium mb-1">Student ID *</label>
                     <input
@@ -450,7 +450,7 @@ export default function DuesAdmin() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium mb-1">Room Number</label>
                     <input
@@ -495,7 +495,7 @@ export default function DuesAdmin() {
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium mb-1">Amount (₹) *</label>
                     <input

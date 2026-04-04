@@ -144,7 +144,7 @@ export default function MaintenanceRequest() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 p-6">
+    <div className="min-h-screen bg-gray-900 text-gray-100 p-4 sm:p-6 pt-24">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
@@ -153,7 +153,7 @@ export default function MaintenanceRequest() {
         </div>
 
         {/* Tabs */}
-        <div className="flex justify-center gap-4 mb-8">
+        <div className="flex flex-wrap justify-center gap-3 mb-8">
           <button
             onClick={() => setActiveTab('new')}
             className={`px-6 py-3 rounded-xl font-semibold transition ${
@@ -187,12 +187,12 @@ export default function MaintenanceRequest() {
 
         {/* New Request Form */}
         {activeTab === 'new' && (
-          <div className="bg-gray-800 border border-gray-700 rounded-2xl shadow-xl p-8">
+          <div className="bg-gray-800 border border-gray-700 rounded-2xl shadow-xl p-4 sm:p-6 md:p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Category Selection */}
               <div>
                 <label className="block text-sm font-medium text-gray-200 mb-3">Issue Category *</label>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                   {CATEGORIES.map(cat => (
                     <button
                       key={cat.value}
@@ -253,7 +253,7 @@ export default function MaintenanceRequest() {
               {/* Urgency */}
               <div>
                 <label className="block text-sm font-medium text-gray-200 mb-3">Urgency Level</label>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                   {URGENCY_LEVELS.map(level => (
                     <button
                       key={level.value}
@@ -297,8 +297,8 @@ export default function MaintenanceRequest() {
               </div>
             ) : (
               requests.map(req => (
-                <div key={req._id} className="bg-gray-800 border border-gray-700 rounded-xl shadow-md p-6">
-                  <div className="flex items-start justify-between mb-4">
+                <div key={req._id} className="bg-gray-800 border border-gray-700 rounded-xl shadow-md p-4 sm:p-6">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
                     <div className="flex items-center gap-3">
                       <span className="text-3xl">{getCategoryIcon(req.category)}</span>
                       <div>
@@ -313,8 +313,8 @@ export default function MaintenanceRequest() {
 
                   <p className="text-gray-400 text-sm mb-4">{req.description}</p>
 
-                  <div className="flex items-center justify-between text-sm">
-                    <div className="flex items-center gap-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-sm">
+                    <div className="flex flex-wrap items-center gap-3">
                       <span className={`px-2 py-1 rounded text-xs ${
                         URGENCY_LEVELS.find(u => u.value === req.urgency)?.color || 'bg-gray-700'
                       }`}>

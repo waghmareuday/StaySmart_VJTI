@@ -12,8 +12,8 @@ function Profile() {
   };
 
   return (
-    <div className="bg-gray-900 min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-md bg-gray-800 rounded-lg shadow-xl p-8">
+    <div className="bg-gray-900 min-h-screen flex items-center justify-center px-4 pt-24 pb-8">
+      <div className="w-full max-w-md bg-gray-800 rounded-lg shadow-xl p-5 sm:p-8">
         {/* User Avatar */}
         <div className="flex justify-center mb-6">
           <img
@@ -25,8 +25,8 @@ function Profile() {
 
         {/* User Details */}
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-slate-400 mb-4">{user?.name}</h1>
-          <p className="text-lg text-slate-300">Email: {user?.email}</p>
+          <h1 className="text-2xl sm:text-4xl font-bold text-slate-400 mb-4 break-words">{user?.name}</h1>
+          <p className="text-base sm:text-lg text-slate-300 break-all">Email: {user?.email}</p>
           {/* <p className="text-sm text-slate-500 mt-1">ID: {user?.id}</p> */}
         </div>
 

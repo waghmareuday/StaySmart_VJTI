@@ -95,10 +95,10 @@ function StudentDashboard({ user: userProp }) {
   }
 
   return (
-    <div className="bg-gray-900 min-h-screen p-8 pt-24">
+    <div className="bg-gray-900 min-h-screen p-4 sm:p-6 md:p-8 pt-24">
       <div className="max-w-4xl mx-auto">
 
-        <h1 className="text-3xl font-bold text-white mb-8">Hostel Allotment Portal</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-white mb-8">Hostel Allotment Portal</h1>
 
         {/* INCOMING ROOMMATE REQUESTS */}
         {dashboardData?.incomingRequests?.length > 0 && (
@@ -106,7 +106,7 @@ function StudentDashboard({ user: userProp }) {
             {dashboardData.incomingRequests.map((requesterId, idx) => (
               <div
                 key={idx}
-                className="bg-yellow-900/40 border border-yellow-500 rounded-xl p-6 flex justify-between items-center shadow-2xl"
+                  className="bg-yellow-900/40 border border-yellow-500 rounded-xl p-4 sm:p-6 flex flex-col md:flex-row gap-4 md:justify-between md:items-center shadow-2xl"
               >
                 <div>
                   <h3 className="text-yellow-400 font-bold text-xl mb-1 flex items-center gap-2">
@@ -118,7 +118,7 @@ function StudentDashboard({ user: userProp }) {
                 </div>
 
                 {!dashboardData.application ? (
-                  <div className="text-right">
+                  <div className="md:text-right">
                     <p className="text-sm text-yellow-300 mb-2 italic">Step 1: Fill out your form to proceed</p>
                     <button
                       onClick={() => navigate('/RoomAllotment')}
@@ -147,14 +147,14 @@ function StudentDashboard({ user: userProp }) {
 
         {/* APPLICATION STATUS */}
         {dashboardData?.application ? (
-          <div className="bg-gray-800 rounded-xl shadow-lg p-8 border border-gray-700">
+          <div className="bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6 md:p-8 border border-gray-700">
             <h2 className="text-2xl font-bold text-white mb-2">My Application</h2>
             <p className="text-gray-400 mb-6">
               Year: {dashboardData.application.academicYear} | Distance: {dashboardData.distance && Math.round(dashboardData.distance)} km
             </p>
 
             <div className="bg-gray-700 rounded-lg p-6">
-              <div className="flex justify-between items-start">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
                 <div>
                   <h3 className="text-lg font-medium text-gray-300 mb-2">
                     Current Status
@@ -221,7 +221,7 @@ function StudentDashboard({ user: userProp }) {
             </div>
           </div>
         ) : (
-          <div className="bg-gray-800 rounded-xl shadow-lg p-10 border border-gray-700 flex flex-col items-center text-center">
+          <div className="bg-gray-800 rounded-xl shadow-lg p-6 sm:p-8 md:p-10 border border-gray-700 flex flex-col items-center text-center">
             <svg className="w-16 h-16 text-gray-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
             </svg>

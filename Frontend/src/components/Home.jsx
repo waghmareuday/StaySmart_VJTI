@@ -89,15 +89,15 @@ function Home() {
   return (
     <div className={`home-container ${isDarkMode ? 'dark' : ''}`}>
       {/* Hero Section */}
-      <div className="relative h-screen bg-gradient-to-b from-[#1f2937] to-[#111827] text-white overflow-hidden">
+      <div className="relative min-h-screen bg-gradient-to-b from-[#1f2937] to-[#111827] text-white overflow-hidden pt-20">
         {/* Background Animated Gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-indigo-500 to-cyan-500 opacity-10 animate-gradient" />
         {/* Hero Content */}
-        <div className="relative z-10 flex flex-col md:flex-row items-center justify-between h-full px-8">
+        <div className="relative z-10 flex flex-col md:flex-row items-center justify-center md:justify-between min-h-[calc(100vh-5rem)] gap-8 md:gap-10 px-4 sm:px-6 md:px-8 py-6 md:py-0">
           {/* Left Section */}
-          <div className="w-full md:w-1/2 text-center md:text-left">
+          <div className="w-full md:w-1/2 max-w-2xl text-center md:text-left">
             <motion.h1
-              className="text-4xl md:text-5xl font-bold leading-snug text-left text-transparent bg-clip-text bg-gradient-to-r from-[#ff6347] via-[#60a5fa] to-[#32cd32] tracking-wide"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold leading-snug text-center md:text-left text-transparent bg-clip-text bg-gradient-to-r from-[#ff6347] via-[#60a5fa] to-[#32cd32] tracking-wide"
               style={{ fontFamily: "'Poppins', sans-serif" }} // Custom font for extra style
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
@@ -112,7 +112,7 @@ function Home() {
             </motion.h1>
 
             <motion.p
-              className="mt-6 text-lg md:text-xl font-medium leading-relaxed text-gray-300"
+              className="mt-6 text-base sm:text-lg md:text-xl font-medium leading-relaxed text-gray-300"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1 }}
@@ -122,7 +122,7 @@ function Home() {
             </motion.p>
             <motion.a
               href="#gallery"
-              className="mt-8 inline-block px-8 py-4 bg-[#2f5583] text-white text-sm font-semibold uppercase rounded-lg shadow-md transition-all duration-300 hover:bg-blue-700 hover:shadow-lg transform hover:scale-105"
+              className="mt-8 inline-block px-6 sm:px-8 py-3 sm:py-4 bg-[#2f5583] text-white text-xs sm:text-sm font-semibold uppercase rounded-lg shadow-md transition-all duration-300 hover:bg-blue-700 hover:shadow-lg transform hover:scale-105"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 1.5 }}
@@ -133,7 +133,7 @@ function Home() {
 
           {/* Right Section */}
           <motion.div
-            className="w-full md:w-1/2 flex items-center justify-center mt-24"
+            className="w-full md:w-1/2 flex items-center justify-center"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
@@ -141,7 +141,7 @@ function Home() {
             <img
               src={hostelImg}
               alt="Hostel Life"
-              className="max-w-md md:max-w-lg rounded-2xl shadow-2xl shadow-white transform hover:scale-105 transition duration-300 ease-in-out"
+              className="w-full max-w-xs sm:max-w-md md:max-w-lg rounded-2xl shadow-2xl shadow-white transform hover:scale-105 transition duration-300 ease-in-out"
             />
           </motion.div>
         </div>
@@ -158,7 +158,7 @@ function Home() {
           Notice Board
         </motion.h2>
         <motion.div
-          className="max-w-6xl mx-auto"
+          className="max-w-6xl mx-auto px-4 sm:px-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
@@ -177,7 +177,7 @@ function Home() {
         <h2 className="text-4xl font-bold text-[#60a5fa] text-center mb-12">
           Upcoming Events
         </h2>
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-8">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-4 sm:px-6 md:px-8">
           <motion.div
             className="relative group"
             initial={{ opacity: 0, y: 20 }}
@@ -224,7 +224,7 @@ function Home() {
         <h2 className="text-4xl font-bold text-[#60a5fa] text-center mb-12">
           Why Choose StaySmart?
         </h2>
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-8">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-4 sm:px-6 md:px-8">
           <motion.div
             className="bg-gray-700 rounded-lg p-6 shadow-md hover:shadow-xl transform transition-all hover:scale-105"
             initial={{ opacity: 0, y: 20 }}

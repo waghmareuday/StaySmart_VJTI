@@ -45,9 +45,9 @@ function Signup() {
     }
   };
   return (
-    <div className="bg-gray-900 min-h-screen flex items-center pt-28 justify-center px-12 py-10">
-      <div className="w-full max-w-lg bg-gray-800 rounded-2xl shadow-2xl p-10">
-        <h1 className="text-4xl font-semibold text-center text-gray-200 mb-6">
+    <div className="bg-gray-900 min-h-screen flex items-center pt-24 justify-center px-4 sm:px-6 py-8">
+      <div className="w-full max-w-lg bg-gray-800 rounded-2xl shadow-2xl p-5 sm:p-8 md:p-10">
+        <h1 className="text-3xl sm:text-4xl font-semibold text-center text-gray-200 mb-6">
           Create an Account
         </h1>
         <p className="text-center text-gray-300 mb-8">

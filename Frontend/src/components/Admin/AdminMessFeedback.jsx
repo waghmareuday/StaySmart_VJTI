@@ -36,7 +36,7 @@ function AdminMessFeedback() {
   );
 
   return (
-    <div className="w-[100%] h-[90vh] text-white bg-gray-800 mt-1 p-4">
+    <div className="w-full min-h-[calc(100vh-6rem)] text-white bg-gray-800 mt-1 p-3 sm:p-4">
       <h2 className="text-2xl font-bold mb-4">Admin Feedback Panel</h2>
 
       {/* Search Input */}
@@ -57,8 +57,8 @@ function AdminMessFeedback() {
       </button>
 
       {/* Feedback Table */}
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse border">
+      <div className="overflow-x-auto max-h-[65vh] overflow-y-auto">
+        <table className="min-w-[640px] w-full border-collapse border">
           <thead>
             <tr className="bg-gray-700">
               <th className="p-2 border">Name</th>

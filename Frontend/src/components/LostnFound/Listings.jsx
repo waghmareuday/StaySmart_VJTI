@@ -9,8 +9,8 @@ function Listings() {
   };
 
   return (
-    <div className="py-5 w-[60%]">
-      <h2 className=" text-3xl font-bold mb-4 text-[#60a5fa] text-left">Recent Listings</h2>
+    <div className="py-5 w-full max-w-3xl">
+      <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-[#60a5fa] text-left">Recent Listings</h2>
       <div id="listingsContainer" className="">
         {listings.length === 0 ? (
           <p className="text-white">No items listed yet. Be the first to post!</p>

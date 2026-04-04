@@ -8,7 +8,7 @@ const formatDateTime = (value) => {
 const NoticeBoard = ({ notices = [], loading = false, error = "", maxVisible = 0 }) => {
   if (loading) {
     return (
-      <div className="notice-board bg-[#1f2937] p-8 rounded-lg shadow-lg text-[#d1d5db]">
+      <div className="notice-board bg-[#1f2937] p-4 sm:p-6 md:p-8 rounded-lg shadow-lg text-[#d1d5db]">
         Loading latest notices...
       </div>
     );
@@ -16,7 +16,7 @@ const NoticeBoard = ({ notices = [], loading = false, error = "", maxVisible = 0
 
   if (error) {
     return (
-      <div className="notice-board bg-[#1f2937] p-8 rounded-lg shadow-lg text-red-300 border border-red-700">
+      <div className="notice-board bg-[#1f2937] p-4 sm:p-6 md:p-8 rounded-lg shadow-lg text-red-300 border border-red-700">
         {error}
       </div>
     );
@@ -24,14 +24,14 @@ const NoticeBoard = ({ notices = [], loading = false, error = "", maxVisible = 0
 
   if (!Array.isArray(notices) || notices.length === 0) {
     return (
-      <div className="notice-board bg-[#1f2937] p-8 rounded-lg shadow-lg text-[#d1d5db]">
+      <div className="notice-board bg-[#1f2937] p-4 sm:p-6 md:p-8 rounded-lg shadow-lg text-[#d1d5db]">
         No notices available right now.
       </div>
     );
   }
 
   return (
-    <div className="notice-board bg-[#1f2937] p-8 rounded-lg shadow-lg">
+    <div className="notice-board bg-[#1f2937] p-4 sm:p-6 md:p-8 rounded-lg shadow-lg">
       {maxVisible > 0 && (
         <p className="text-sm text-[#9ca3af] mb-4">Showing up to {maxVisible} latest notices</p>
       )}
@@ -43,7 +43,7 @@ const NoticeBoard = ({ notices = [], loading = false, error = "", maxVisible = 0
             className="bg-[#2d3748] p-4 rounded-lg shadow-md hover:shadow-lg transition-transform duration-300 hover:scale-105"
           >
             <div className="flex items-start justify-between gap-4">
-              <h3 className="text-xl font-semibold text-[#60a5fa]">{notice.title}</h3>
+              <h3 className="text-lg sm:text-xl font-semibold text-[#60a5fa]">{notice.title}</h3>
               {notice.isPinned && (
                 <span className="text-xs px-2 py-1 rounded-full bg-[#1e3a8a] text-[#bfdbfe]">Pinned</span>
               )}

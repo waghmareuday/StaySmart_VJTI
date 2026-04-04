@@ -12,8 +12,8 @@ function AdminProfile() {
   };
 
   return (
-    <div className="w-[100%] h-[90vh] bg-gray-900 mt-1 flex items-center justify-center">
-      <div className="w-full max-w-md bg-gray-800 rounded-lg shadow-xl p-8">
+    <div className="w-full min-h-[calc(100vh-6rem)] bg-gray-900 mt-1 flex items-center justify-center px-4 py-6">
+      <div className="w-full max-w-md bg-gray-800 rounded-lg shadow-xl p-5 sm:p-8">
         {/* Admin Avatar */}
         <div className="flex justify-center mb-6">
           <img
@@ -25,7 +25,7 @@ function AdminProfile() {
 
         {/* Admin Details */}
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-slate-400 mb-4">Admin Dashboard</h1>
+          <h1 className="text-2xl sm:text-4xl font-bold text-slate-400 mb-4">Admin Dashboard</h1>
           <p className="text-lg text-slate-300">Welcome, {user?.name}!</p>
           <p className="text-sm text-slate-500 mt-1">Role: Admin</p>
         </div>

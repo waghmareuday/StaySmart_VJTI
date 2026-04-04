@@ -103,13 +103,13 @@ export default function MaintenanceAdmin() {
   };
 
   return (
-    <div className="p-6 bg-gray-900 text-gray-100 min-h-screen">
+    <div className="p-4 sm:p-6 bg-gray-900 text-gray-100 min-h-screen">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <h1 className="text-2xl font-bold text-gray-100 mb-6">Maintenance Management</h1>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
           <div className="bg-gray-800 p-4 rounded-xl shadow-sm border-l-4 border-indigo-500">
             <p className="text-sm text-gray-400">New</p>
             <p className="text-2xl font-bold text-indigo-400">{stats.submitted || 0}</p>
@@ -176,60 +176,62 @@ export default function MaintenanceAdmin() {
           ) : requests.length === 0 ? (
             <div className="p-12 text-center text-gray-400">No requests found</div>
           ) : (
-            <table className="w-full">
-              <thead className="bg-gray-900">
-                <tr>
-                  <th className="px-4 py-3 text-left text-sm font-semibold text-gray-300">Request</th>
-                  <th className="px-4 py-3 text-left text-sm font-semibold text-gray-300">Student</th>
-                  <th className="px-4 py-3 text-left text-sm font-semibold text-gray-300">Location</th>
-                  <th className="px-4 py-3 text-center text-sm font-semibold text-gray-300">Urgency</th>
-                  <th className="px-4 py-3 text-center text-sm font-semibold text-gray-300">Status</th>
-                  <th className="px-4 py-3 text-center text-sm font-semibold text-gray-300">Date</th>
-                  <th className="px-4 py-3 text-center text-sm font-semibold text-gray-300">Action</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-700">
-                {requests.map(req => (
-                  <tr key={req._id} className="hover:bg-gray-700/40">
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xl">{getCategoryIcon(req.category)}</span>
-                        <div>
-                          <p className="font-medium text-gray-100">{req.title}</p>
-                          <p className="text-xs text-gray-400">{req.category?.replace('_', ' ')}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-4 py-3">
-                      <p className="text-sm font-medium">{req.studentName}</p>
-                      <p className="text-xs text-gray-400">{req.studentId}</p>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-gray-300">{req.location}</td>
-                    <td className="px-4 py-3 text-center">
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${URGENCY_BADGES[req.urgency]}`}>
-                        {req.urgency}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3 text-center">
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${STATUS_BADGES[req.status]}`}>
-                        {req.status?.replace('_', ' ')}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-gray-500 text-center">
-                      {new Date(req.createdAt).toLocaleDateString()}
-                    </td>
-                    <td className="px-4 py-3 text-center">
-                      <button
-                        onClick={() => openUpdateModal(req)}
-                        className="px-3 py-1 bg-indigo-900/40 text-indigo-300 rounded-lg hover:bg-indigo-900/60 text-sm"
-                      >
-                        Update
-                      </button>
-                    </td>
+            <div className="overflow-x-auto">
+              <table className="min-w-[900px] w-full">
+                <thead className="bg-gray-900">
+                  <tr>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-300">Request</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-300">Student</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-300">Location</th>
+                    <th className="px-4 py-3 text-center text-sm font-semibold text-gray-300">Urgency</th>
+                    <th className="px-4 py-3 text-center text-sm font-semibold text-gray-300">Status</th>
+                    <th className="px-4 py-3 text-center text-sm font-semibold text-gray-300">Date</th>
+                    <th className="px-4 py-3 text-center text-sm font-semibold text-gray-300">Action</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-gray-700">
+                  {requests.map(req => (
+                    <tr key={req._id} className="hover:bg-gray-700/40">
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xl">{getCategoryIcon(req.category)}</span>
+                          <div>
+                            <p className="font-medium text-gray-100">{req.title}</p>
+                            <p className="text-xs text-gray-400">{req.category?.replace('_', ' ')}</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3">
+                        <p className="text-sm font-medium">{req.studentName}</p>
+                        <p className="text-xs text-gray-400">{req.studentId}</p>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-300">{req.location}</td>
+                      <td className="px-4 py-3 text-center">
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${URGENCY_BADGES[req.urgency]}`}>
+                          {req.urgency}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-center">
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${STATUS_BADGES[req.status]}`}>
+                          {req.status?.replace('_', ' ')}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-500 text-center">
+                        {new Date(req.createdAt).toLocaleDateString()}
+                      </td>
+                      <td className="px-4 py-3 text-center">
+                        <button
+                          onClick={() => openUpdateModal(req)}
+                          className="px-3 py-1 bg-indigo-900/40 text-indigo-300 rounded-lg hover:bg-indigo-900/60 text-sm"
+                        >
+                          Update
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
 

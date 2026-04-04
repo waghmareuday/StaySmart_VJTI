@@ -219,9 +219,9 @@ function Dashboard() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-gray-900 p-6">
+    <div className="w-full min-h-screen bg-gray-900 p-4 sm:p-6">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
           <h1 className="text-3xl font-bold text-white">Dashboard</h1>
           <p className="text-gray-400 text-sm mt-1">
@@ -231,7 +231,7 @@ function Dashboard() {
         <button
           onClick={fetchAllData}
           disabled={loading}
-          className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-all"
+          className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-all"
         >
           <span className={loading ? 'animate-spin' : ''}>🔄</span>
           {loading ? 'Refreshing...' : 'Refresh'}
@@ -264,7 +264,7 @@ function Dashboard() {
       )}
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4 mb-8">
         <div className="bg-indigo-600 p-4 rounded-xl shadow-lg">
           <div className="text-indigo-100 text-sm mb-1">Total Students</div>
           <div className="text-3xl font-bold text-white">{data?.totalCountStudents || 0}</div>
@@ -334,7 +334,7 @@ function Dashboard() {
       {/* Quick Actions */}
       <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700">
         <h3 className="text-lg font-semibold text-white mb-4">Quick Actions</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3">
           <Link to="/admin/HostelAllotment" className="bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 p-4 rounded-xl text-center transition-all">
             <div className="text-2xl mb-2">🏠</div>
             <div className="text-sm text-white">Allotment</div>

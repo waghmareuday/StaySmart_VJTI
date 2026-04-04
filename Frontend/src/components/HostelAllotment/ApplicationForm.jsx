@@ -220,7 +220,7 @@ function ApplicationForm() {
   // If already has application - show status
   if (existingApp) {
     return (
-      <div className="min-h-screen bg-gray-900 p-8 pt-24">
+      <div className="min-h-screen bg-gray-900 p-4 sm:p-6 md:p-8 pt-24">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl font-bold text-white mb-8">Hostel Room Allotment</h1>
 
@@ -229,7 +229,7 @@ function ApplicationForm() {
             <div className="mb-8 space-y-4">
               <h2 className="text-xl font-bold text-yellow-400">🔔 Incoming Roommate Requests</h2>
               {incomingRequests.map((requesterId, idx) => (
-                <div key={idx} className="bg-yellow-900/30 border border-yellow-600 rounded-xl p-6 flex justify-between items-center">
+                <div key={idx} className="bg-yellow-900/30 border border-yellow-600 rounded-xl p-4 sm:p-6 flex flex-col md:flex-row gap-4 md:justify-between md:items-center">
                   <div>
                     <p className="text-gray-200">
                       <span className="font-bold text-white">{requesterId}</span> wants to be your roommate
@@ -265,8 +265,8 @@ function ApplicationForm() {
           )}
 
           {/* Application Status Card */}
-          <div className="bg-gray-800 rounded-xl p-8 border border-gray-700 shadow-xl">
-            <div className="flex justify-between items-start mb-6">
+          <div className="bg-gray-800 rounded-xl p-4 sm:p-6 md:p-8 border border-gray-700 shadow-xl">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-6">
               <div>
                 <h2 className="text-2xl font-bold text-white mb-1">Your Application</h2>
                 <p className="text-gray-400">
@@ -356,7 +356,7 @@ function ApplicationForm() {
 
             {/* Additional info */}
             <div className="mt-6 pt-6 border-t border-gray-700">
-              <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                 <div>
                   <span className="text-gray-500">Student ID:</span>
                   <span className="ml-2 text-white font-mono">{existingApp.studentId}</span>
@@ -402,7 +402,7 @@ function ApplicationForm() {
 
   // Application Form
   return (
-    <div className="min-h-screen bg-gray-900 p-8 pt-24">
+    <div className="min-h-screen bg-gray-900 p-4 sm:p-6 md:p-8 pt-24">
       <div className="max-w-2xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-white mb-2">Hostel Room Allotment Application</h1>
@@ -419,7 +419,7 @@ function ApplicationForm() {
           </ul>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-gray-800 rounded-xl p-8 border border-gray-700 shadow-xl">
+        <form onSubmit={handleSubmit} className="bg-gray-800 rounded-xl p-4 sm:p-6 md:p-8 border border-gray-700 shadow-xl">
           {/* Student ID */}
           <div className="mb-6">
             <label className="block text-gray-300 font-medium mb-2">Student ID / Roll Number *</label>

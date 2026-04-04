@@ -29,11 +29,11 @@ function Complaint() {
   }, []);
 
   return (
-    <div className="w-[100%] h-[90vh] bg-gray-800 mt-1 p-2">
+    <div className="w-full min-h-[calc(100vh-6rem)] bg-gray-800 mt-1 p-2 sm:p-3">
       <div className="text-2xl text-white">Complaints</div>
 
-      <div className="overflow-x-auto shadow-md overflow-y-auto h-[550px]">
-        <table className="min-w-full text-sm text-left text-gray-500">
+      <div className="overflow-x-auto shadow-md overflow-y-auto max-h-[70vh]">
+        <table className="min-w-[760px] w-full text-sm text-left text-gray-500">
           <thead className="text-xs text-white bg-gray-800 uppercase sticky top-0">
             <tr>
               {/* <th scope="col" className="px-6 py-3">Complaint ID</th>

@@ -156,10 +156,10 @@ function RoomSwap() {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 mb-6 bg-gray-800 p-1 rounded-lg w-fit mx-auto">
+        <div className="flex flex-wrap justify-center gap-2 mb-6 bg-gray-800 p-1 rounded-lg mx-auto">
           <button
             onClick={() => setActiveTab('create')}
-            className={`px-6 py-2 rounded-lg font-medium transition ${
+            className={`px-4 sm:px-6 py-2 rounded-lg font-medium transition ${
               activeTab === 'create' 
                 ? 'bg-blue-600 text-white' 
                 : 'text-gray-400 hover:text-white'
@@ -170,7 +170,7 @@ function RoomSwap() {
           </button>
           <button
             onClick={() => { setActiveTab('my-requests'); fetchMyRequests(); }}
-            className={`px-6 py-2 rounded-lg font-medium transition ${
+            className={`px-4 sm:px-6 py-2 rounded-lg font-medium transition ${
               activeTab === 'my-requests' 
                 ? 'bg-blue-600 text-white' 
                 : 'text-gray-400 hover:text-white'

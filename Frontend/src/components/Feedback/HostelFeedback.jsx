@@ -49,10 +49,10 @@ const handleSubmit = async (e) => {
 
 
   return (
-    <div className="bg-gray-900 text-white font-sans pt-[8%]">
+    <div className="bg-gray-900 text-white font-sans pt-24 px-4">
       <div className="min-h-screen flex flex-col items-center justify-center">
         <h1 className="text-3xl font-bold text-blue-400 mb-4">Hostel Feedback Form</h1>
-        <p className="text-gray-400 text-center mb-6">We value your feedback! Please take a moment to share your thoughts about our hostel services.</p>
+        <p className="text-gray-400 text-center mb-6 max-w-xl">We value your feedback! Please take a moment to share your thoughts about our hostel services.</p>
 
         <form onSubmit={handleSubmit} className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-lg">
           <div className="mb-4">

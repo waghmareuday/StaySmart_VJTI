@@ -56,17 +56,17 @@ function Event() {
                 <img
                   src={image.src}
                   alt={image.title}
-                  className="rounded-lg w-full h-[450px] object-cover transform transition-transform duration-500 hover:scale-105"
+                  className="rounded-lg w-full h-56 sm:h-80 md:h-[450px] object-cover transform transition-transform duration-500 hover:scale-105"
                 />
                 {index === 0 ? (
-                  <div className="absolute left-0 top-0 w-full h-full bg-black bg-opacity-40 backdrop-blur-sm p-8 flex flex-col justify-center items-start">
-                    <h2 className="text-5xl font-bold text-white">{image.title}</h2>
-                    <p className="text-2xl text-white mt-2">{image.subtitle}</p>
+                  <div className="absolute left-0 top-0 w-full h-full bg-black bg-opacity-40 backdrop-blur-sm p-4 sm:p-6 md:p-8 flex flex-col justify-center items-start">
+                    <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white">{image.title}</h2>
+                    <p className="text-base sm:text-xl md:text-2xl text-white mt-2">{image.subtitle}</p>
                   </div>
                 ) : (
-                  <div className="absolute left-4 bottom-4 bg-black bg-opacity-40 rounded-md p-4">
-                    <h3 className="text-2xl font-bold">{image.title}</h3>
-                    <p className="text-lg mt-1">{image.subtitle}</p>
+                  <div className="absolute left-3 bottom-3 sm:left-4 sm:bottom-4 bg-black bg-opacity-40 rounded-md p-3 sm:p-4">
+                    <h3 className="text-lg sm:text-2xl font-bold">{image.title}</h3>
+                    <p className="text-sm sm:text-lg mt-1">{image.subtitle}</p>
                   </div>
                 )}
               </div>
@@ -81,7 +81,7 @@ function Event() {
         
         <div className="grid md:grid-cols-2 gap-12">
           {/* Registration Form */}
-          <div className="bg-gray-900 p-8 rounded-2xl shadow-xl">
+          <div className="bg-gray-900 p-4 sm:p-6 md:p-8 rounded-2xl shadow-xl">
             <form className="space-y-6">
               <div>
                 <label className="block text-lg font-medium mb-2">Full Name</label>
@@ -142,12 +142,12 @@ function Event() {
                 <img 
                   src={event.src} 
                   alt={event.title} 
-                  className="w-full h-64 object-cover transform transition duration-500 group-hover:scale-110"
+                  className="w-full h-52 sm:h-64 object-cover transform transition duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent p-6 flex flex-col justify-end">
-                  <h3 className="text-2xl font-bold text-white mb-2">{event.title}</h3>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent p-4 sm:p-6 flex flex-col justify-end">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">{event.title}</h3>
                   <p className="text-gray-200">{event.subtitle}</p>
-                  <button className="mt-4 self-start bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+                  <button className="mt-4 self-start bg-blue-600 text-white px-4 sm:px-6 py-2 rounded-lg hover:bg-blue-700 transition">
                     Learn More
                   </button>
                 </div>

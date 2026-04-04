@@ -158,7 +158,7 @@ export default function NightOutPass() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 p-6">
+    <div className="min-h-screen bg-gray-900 text-gray-100 p-4 sm:p-6 pt-24">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
@@ -167,7 +167,7 @@ export default function NightOutPass() {
         </div>
 
         {/* Quick Stats */}
-        <div className="grid grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           <div className="bg-gray-800 rounded-xl p-4 text-center shadow-sm border border-gray-700">
             <p className="text-2xl font-bold text-yellow-600">{stats.pending || 0}</p>
             <p className="text-sm text-gray-400">Pending</p>
@@ -183,7 +183,7 @@ export default function NightOutPass() {
         </div>
 
         {/* Tabs */}
-        <div className="flex justify-center gap-4 mb-8">
+        <div className="flex flex-wrap justify-center gap-3 mb-8">
           <button
             onClick={() => setActiveTab('apply')}
             className={`px-6 py-3 rounded-xl font-semibold transition ${
@@ -217,12 +217,12 @@ export default function NightOutPass() {
 
         {/* Apply Form */}
         {activeTab === 'apply' && (
-          <div className="bg-gray-800 border border-gray-700 rounded-2xl shadow-xl p-8">
+          <div className="bg-gray-800 border border-gray-700 rounded-2xl shadow-xl p-4 sm:p-6 md:p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Pass Type Selection */}
               <div>
                 <label className="block text-sm font-medium text-gray-200 mb-3">Pass Type *</label>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                   {PASS_TYPES.map(type => (
                     <button
                       key={type.value}
@@ -399,8 +399,8 @@ export default function NightOutPass() {
               </div>
             ) : (
               passes.map(pass => (
-                <div key={pass._id} className="bg-gray-800 border border-gray-700 rounded-xl shadow-md p-6">
-                  <div className="flex items-start justify-between mb-4">
+                <div key={pass._id} className="bg-gray-800 border border-gray-700 rounded-xl shadow-md p-4 sm:p-6">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
                     <div className="flex items-center gap-3">
                       <span className="text-3xl">{PASS_TYPES.find(t => t.value === pass.passType)?.icon || '🎫'}</span>
                       <div>
@@ -413,7 +413,7 @@ export default function NightOutPass() {
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm mb-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-sm mb-4">
                     <div>
                       <p className="text-gray-400">Departure</p>
                       <p className="font-medium">{new Date(pass.departureDate).toLocaleDateString()}</p>

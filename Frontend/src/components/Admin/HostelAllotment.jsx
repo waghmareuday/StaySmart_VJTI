@@ -223,10 +223,10 @@ function HostelAllotment() {
   );
 
   return (
-    <div className="bg-gray-900 min-h-screen p-8 text-gray-300">
+    <div className="bg-gray-900 min-h-screen p-4 sm:p-6 md:p-8 text-gray-300">
       <div className="max-w-7xl mx-auto">
         
-        <div className="mb-8 flex justify-between items-end">
+        <div className="mb-8 flex flex-col lg:flex-row lg:justify-between lg:items-end gap-4">
           <div>
             <h1 className="text-3xl font-bold text-white mb-2">Hostel Allotment Management</h1>
             <p className="text-gray-400">Run algorithms, view applicants, or manage the master list.</p>
@@ -334,7 +334,7 @@ function HostelAllotment() {
                     <button onClick={() => setPreviewData(null)} className="px-4 py-2 bg-red-900/50 text-red-400 rounded hover:bg-red-900 transition">Discard</button>
                   </div>
                 </div>
-                <div className="grid grid-cols-3 gap-4 mb-4 shrink-0">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4 shrink-0">
                    <div className="bg-gray-900 p-4 rounded-lg text-center border border-gray-700">
                      <p className="text-gray-400 text-sm">Total Processed</p>
                      <p className="text-2xl font-bold text-white">{previewData.stats?.totalApplicants || 0}</p>
@@ -350,7 +350,7 @@ function HostelAllotment() {
                 </div>
 
                 {/* Pairing Stats */}
-                <div className="grid grid-cols-3 gap-4 mb-4 shrink-0">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4 shrink-0">
                    <div className="bg-green-900/20 p-3 rounded-lg text-center border border-green-800">
                      <p className="text-green-400 text-xs">Mutual Pairs</p>
                      <p className="text-xl font-bold text-green-400">{previewData.stats?.mutualPairs || 0}</p>
@@ -367,7 +367,7 @@ function HostelAllotment() {
                 
                 {/* Preview Table */}
                 {previewData.previewList && previewData.previewList.length > 0 && (
-                  <div className="overflow-y-auto border border-gray-700 rounded-lg mb-4 flex-1 max-h-[350px]">
+                  <div className="overflow-y-auto border border-gray-700 rounded-lg mb-4 flex-1 max-h-[280px] md:max-h-[350px]">
                     <table className="w-full text-left text-sm">
                       <thead className="bg-gray-900 text-gray-400 sticky top-0">
                         <tr>
@@ -475,7 +475,7 @@ function HostelAllotment() {
                   </h3>
                   
                   <div className="bg-gray-900 rounded-lg p-4 mb-6">
-                    <div className="grid grid-cols-2 gap-4 text-sm">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                       <div>
                         <span className="text-gray-500">Academic Year:</span>
                         <span className="ml-2 text-white">{selectedStudent.academicYear}</span>
@@ -564,7 +564,7 @@ function HostelAllotment() {
         {/* ======================= APPLICANTS TAB ======================= */}
         {activeTab === 'applicants' && (
           <div className="bg-gray-800 rounded-xl shadow-lg border border-gray-700 overflow-hidden">
-            <div className="p-6 border-b border-gray-700 flex gap-4 items-center bg-gray-800/50">
+            <div className="p-6 border-b border-gray-700 flex flex-col md:flex-row gap-4 md:items-center bg-gray-800/50">
               <input 
                 type="text"
                 placeholder="Search Student ID..."
@@ -575,7 +575,7 @@ function HostelAllotment() {
               <select 
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="p-3 bg-gray-900 rounded-lg focus:ring-blue-500 outline-none text-white border border-gray-700 w-64"
+                className="p-3 bg-gray-900 rounded-lg focus:ring-blue-500 outline-none text-white border border-gray-700 w-full md:w-64"
               >
                 <option value="ALL">All Statuses</option>
                 <option value="PENDING">Pending</option>
@@ -639,13 +639,13 @@ function HostelAllotment() {
            <div className="flex flex-col gap-6">
              {/* The Master List Table (Keep your existing table code here) */}
              <div className="bg-gray-800 rounded-xl shadow-lg border border-gray-700 overflow-hidden">
-               <div className="p-6 border-b border-gray-700 flex justify-between items-center bg-gray-800/50">
+               <div className="p-6 border-b border-gray-700 flex flex-col md:flex-row gap-4 md:justify-between md:items-center bg-gray-800/50">
                  <input 
                    type="text"
                    placeholder="Search Room Number or Student ID..."
                    value={searchQuery}
                    onChange={(e) => setSearchQuery(e.target.value)}
-                   className="w-1/2 p-3 bg-gray-900 rounded-lg focus:ring-blue-500 outline-none text-white border border-gray-700"
+                   className="w-full md:w-1/2 p-3 bg-gray-900 rounded-lg focus:ring-blue-500 outline-none text-white border border-gray-700"
                  />
                  <button onClick={handleExportCSV} className="px-6 py-3 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 transition shadow-md">
                    Export to CSV
@@ -683,7 +683,7 @@ function HostelAllotment() {
              </div>
 
              {/* --- NEW: DANGER ZONE --- */}
-             <div className="bg-red-900/20 border border-red-800 rounded-xl p-6 flex justify-between items-center shadow-lg">
+             <div className="bg-red-900/20 border border-red-800 rounded-xl p-6 flex flex-col md:flex-row gap-4 md:justify-between md:items-center shadow-lg">
                <div>
                  <h3 className="text-red-400 font-bold text-xl mb-1">End of Academic Year (Danger Zone)</h3>
                  <p className="text-gray-400 text-sm">

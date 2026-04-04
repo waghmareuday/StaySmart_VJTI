@@ -51,8 +51,8 @@ function ComplaintForm(r) {
   };
 
   return (
-    <div className="py-12 bg-gradient-to-r from-[#1f2937] to-[#111827] pt-28 text-white">
-      <div className="max-w-4xl mx-auto bg-gray-800 rounded-lg p-8 shadow-lg">
+    <div className="py-12 bg-gradient-to-r from-[#1f2937] to-[#111827] pt-24 px-4 text-white">
+      <div className="max-w-4xl mx-auto bg-gray-800 rounded-lg p-4 sm:p-6 md:p-8 shadow-lg">
         <motion.h2
           className="text-3xl font-bold text-[#60a5fa] text-center mb-6"
           initial={{ opacity: 0 }}
@@ -63,10 +63,10 @@ function ComplaintForm(r) {
         </motion.h2>
 
         <form onSubmit={handleSubmit}>
-          <div className="flex justify-center mb-6">
+          <div className="flex flex-wrap justify-center gap-2 mb-6">
             <button
               type="button"
-              className={`px-6 py-2 mx-2 rounded-full font-semibold transition-all duration-300 ${
+              className={`px-4 sm:px-6 py-2 rounded-full font-semibold transition-all duration-300 ${
                 complaintType === "hostel" ? "bg-[#60a5fa]" : "bg-gray-700"
               }`}
               onClick={() => setComplaintType("hostel")}
@@ -75,7 +75,7 @@ function ComplaintForm(r) {
             </button>
             <button
               type="button"
-              className={`px-6 py-2 mx-2 rounded-full font-semibold transition-all duration-300 ${
+              className={`px-4 sm:px-6 py-2 rounded-full font-semibold transition-all duration-300 ${
                 complaintType === "mess" ? "bg-[#60a5fa]" : "bg-gray-700"
               }`}
               onClick={() => setComplaintType("mess")}

@@ -71,10 +71,10 @@ function Navbar() {
   ];
 
   return (
-    <header className="h-20 w-full bg-gray-900 border-b border-gray-700 fixed top-0 z-50 px-4 md:px-8 flex items-center justify-between">
-      <Link to="/" className="text-white font-bold text-xl md:text-2xl flex items-center gap-2">
-        <span>🏠</span>
-        <span>VJTI StaySmart</span>
+    <header className="h-20 w-full bg-gray-900 border-b border-gray-700 fixed top-0 z-50 px-3 sm:px-4 md:px-8 flex items-center justify-between gap-3">
+      <Link to="/" className="text-white font-bold text-lg sm:text-xl md:text-2xl flex items-center gap-2 min-w-0">
+        <span className="shrink-0">🏠</span>
+        <span className="hidden sm:inline truncate">VJTI StaySmart</span>
       </Link>
 
       <div className="hidden md:flex items-center gap-3 text-sm text-gray-100">
@@ -254,13 +254,13 @@ function Navbar() {
 
       <button
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        className="md:hidden text-white text-lg"
+        className="md:hidden text-white text-lg p-2 rounded-md hover:bg-gray-800"
       >
         {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
       </button>
 
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-20 left-0 w-full bg-gray-900 border-b border-gray-700 px-4 py-4 space-y-2 text-white">
+        <div className="md:hidden absolute top-20 left-0 w-full max-h-[calc(100vh-5rem)] overflow-y-auto bg-gray-900 border-b border-gray-700 px-4 py-4 space-y-2 text-white">
           <Link to="/" className="block px-3 py-2 rounded hover:bg-gray-800" onClick={closeMenus}>Home</Link>
 
           {!isWarden && (
